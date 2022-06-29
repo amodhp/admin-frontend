@@ -28,7 +28,7 @@ const fetchedStockEvents = [
 function App() {
   return (
     <div className="App">
-      <h1>The Assets App</h1>
+      <h1>Assets</h1>
       <AssetsTable
         products={fetchedProducts}
         stockEvents={fetchedStockEvents}
