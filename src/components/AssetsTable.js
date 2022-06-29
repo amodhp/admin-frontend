@@ -30,7 +30,7 @@ function AssetsTable(props) {
 
   return (
     <TableContainer
-      style={{ maxWidth: 500, overflow: "visible" }}
+      style={{ maxWidth: 2500, minWidth: 600 }}
       component={Paper}
     >
       <Table aria-label="simple table">
@@ -54,16 +54,18 @@ function AssetsTable(props) {
               </TableCell>
               <TableCell align="right">{row.asset_category}</TableCell>
               <TableCell align="right">
-                {row.asset_list[0].asset_name}
+                {row.asset_list.map((item) => (
+                  <TableCell align="right">{item.asset_name}</TableCell>
+                ))}
               </TableCell>
-              <TableCell align="right">{row.asset_list[0].asset_id}</TableCell>
+              <TableCell align="right">
+                {row.asset_list.map((item) => (
+                  <TableCell align="right">{item.asset_id}</TableCell>
+                ))}
+              </TableCell>
               <TableCell align="right">{row.asset_category_id}</TableCell>
               <TableCell align="right">
-                <Button
-                  size="small"
-                  variant="outlined"
-                  color="error"
-                >
+                <Button size="small" variant="outlined" color="error">
                   Delete
                 </Button>
               </TableCell>
