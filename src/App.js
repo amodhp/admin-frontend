@@ -2,6 +2,7 @@ import React from "react";
 import "./App.css";
 
 import AssetsTable from "./components/AssetsTable";
+import Home from "./components/Home";
 
 const fetchedProducts = [
   {
@@ -33,6 +34,8 @@ function App() {
         products={fetchedProducts}
         stockEvents={fetchedStockEvents}
       />
+      <h1>Home</h1>
+      <Home/>
     </div>
   );
 }
