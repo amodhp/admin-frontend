@@ -1,8 +1,16 @@
 import React from "react";
 import "./App.css";
-
+import HomeScreen from "./components/HomeScreen";
 import AssetsTable from "./components/AssetsTable";
-import Home from "./components/Home";
+import UserTable from "./components/UserTable";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  useParams,
+  useRouteMatch
+} from "react-router-dom";
 
 const fetchedProducts = [
   {
@@ -28,15 +36,16 @@ const fetchedStockEvents = [
 ];
 function App() {
   return (
-    <div className="App">
-      <h1>Assets</h1>
-      <AssetsTable
-        products={fetchedProducts}
-        stockEvents={fetchedStockEvents}
-      />
-      <h1>Home</h1>
-      <Home/>
-    </div>
+    <Router>
+
+
+        <Route path="/" component={HomeScreen} exact />
+        <Route path="/assets" component={AssetsTable} />
+        <Route path="/users" component={UserTable} />
+
+    </Router>
+
+ 
   );
 }
 

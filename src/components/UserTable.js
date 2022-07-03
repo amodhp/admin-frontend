@@ -19,7 +19,7 @@ const rows = [
     createUserCategory([createUser("Shubham", "sj2181")], "Admin"),
     createUserCategory([createUser("Shubh", "dsh932")], "Internal"),
   ];
-function Home(props) {
+function UserTable(props) {
   return (
     <TableContainer
       style={{ maxWidth: 2500, minWidth: 600 }}
@@ -68,4 +68,4 @@ function Home(props) {
   );
 }
 
-export default Home;
+export default UserTable;
