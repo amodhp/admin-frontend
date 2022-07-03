@@ -11,6 +11,7 @@ import {
   useParams,
   useRouteMatch
 } from "react-router-dom";
+import Login from "./components/HomeScreen";
 
 const fetchedProducts = [
   {
@@ -38,8 +39,8 @@ function App() {
   return (
     <Router>
 
-
-        <Route path="/" component={HomeScreen} exact />
+      
+        <Route path="/" component={Login} exact />
         <Route path="/assets" component={AssetsTable} />
         <Route path="/users" component={UserTable} />
 

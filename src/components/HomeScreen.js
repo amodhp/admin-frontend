@@ -1,7 +1,60 @@
-import React from 'react'
+import React, { Component } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
 
-export default function HomeScreen() {
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  Redirect,
+  useHistory,
+  useLocation,
+} from "react-router-dom";
+
+function Login() {
+  const history = useHistory();
+
+  const assetsPage = () => {
+    history.push("/assets");
+  };
   return (
-    <div><h1>HomeScreen</h1></div>
-  )
+    <form>
+      <h3>Sign In</h3>
+      <div className="mb-3">
+        <label>Email address</label>
+        <input
+          type="email"
+          className="form-control"
+          placeholder="Enter email"
+        />
+      </div>
+      <div className="mb-3">
+        <label>Password</label>
+        <input
+          type="password"
+          className="form-control"
+          placeholder="Enter password"
+        />
+      </div>
+      <div className="mb-3">
+        <div className="custom-control custom-checkbox">
+          <input
+            type="checkbox"
+            className="custom-control-input"
+            id="customCheck1"
+          />
+          <label className="custom-control-label" htmlFor="customCheck1">
+            Remember me
+          </label>
+        </div>
+      </div>
+      <div className="d-grid">
+        <button onClick={assetsPage} type="submit" className="btn btn-primary">
+          Submit
+        </button>
+      </div>
+    </form>
+  );
 }
+
+export default Login;
