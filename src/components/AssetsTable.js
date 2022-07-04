@@ -9,7 +9,7 @@
 // import { Button } from "@mui/material";
 import React, { useState, Fragment } from "react";
 import { nanoid } from "nanoid";
-import "../App.css";
+import "../styles/Table.css";
 import data from "../mockAssetData.json";
 import ReadOnlyRow from "./common/ReadOnlyRow";
 import EditableRow from "./common/EditableRow";
@@ -51,7 +51,7 @@ function AssetsTable(props) {
   const handleEditFormChange = (event) => {
     event.preventDefault();
 
-    const fieldName = event.target.getAttribute("name");
+    const fieldName = event.target.getAttribute("assetName");
     const fieldValue = event.target.value;
 
     const newFormData = { ...editFormData };
@@ -88,7 +88,7 @@ function AssetsTable(props) {
 
     const newContacts = [...contacts];
 
-    const index = contacts.findIndex((contact) => contact.id === editContactId);
+    const index = contacts.findIndex((contact) => contact.assetId === editContactId);
 
     newContacts[index] = editedContact;
 
@@ -103,7 +103,7 @@ function AssetsTable(props) {
     const formValues = {
       assetName: contact.assetName,
       category: contact.category,
-     categoryId: contact.phoneNumber,
+     categoryId: contact.categoryId,
       assetId: contact.assetId,
     };
 
@@ -151,6 +151,7 @@ function AssetsTable(props) {
                   ) : (
                     <ReadOnlyRow
                       contact={contact}
+                      tableType={'Assets'}
                       handleEditClick={handleEditClick}
                       handleDeleteClick={handleDeleteClick}
                     />

@@ -1,37 +1,26 @@
 [
     {
       "assetId": 1,
-      "assetName": "Jenny Chan",
-      "category": "3 waterfoot road",
-      "categoryId": "333-962-7516"
+      "assetName": "AC",
+      "category": "Electric",
+      "categoryId": "asdnajsd336dd"
     
     },
     {
       "assetId": 2,
-      "assetName": "Jessica warren",
-      "category": "4 tall town",
-      "categoryId": "011-211-7516"
+      "assetName": "Switch",
+      "category": "Sub Electric",
+      "categoryId": "dfnj73hbw"
 
     },
     {
       "assetId": 3,
-      "assetName": "Tony Frank",
-      "category": "11 lesly road",
-      "categoryId": "788-962-7516"
+      "assetName": "Machine Gun",
+      "category": "Weapon",
+      "categoryId": "sjcjasnj7378"
 
-    },
-    {
-      "assetId": 4,
-      "assetName": "Jeremy Clark",
-      "category": "333 miltown manor",
-      "categoryId": "011-962-111"
-
-    },
-    {
-      "assetId": 5,
-      "assetName": "Raymond Edwards",
-      "category": "99 blue acres",
-      "categoryId": "3231-962-7516"
-    
     }
+
+    
+    
   ]

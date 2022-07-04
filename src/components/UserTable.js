@@ -9,7 +9,7 @@
 // import { Button } from "@mui/material";
 import React, { useState, Fragment } from "react";
 import { nanoid } from "nanoid";
-import "../App.css";
+import "../styles/Table.css";
 import data from "../mockUserData.json";
 import ReadOnlyRow from "./common/ReadOnlyRow";
 import EditableRow from "./common/EditableRow";
@@ -149,6 +149,7 @@ function UserTable(props) {
                   ) : (
                     <ReadOnlyRow
                       contact={contact}
+                      tableType={'Users'}
                       handleEditClick={handleEditClick}
                       handleDeleteClick={handleDeleteClick}
                     />
