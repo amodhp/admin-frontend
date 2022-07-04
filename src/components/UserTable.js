@@ -1,75 +1,198 @@
-import * as React from "react";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import { Button } from "@mui/material";
+// import * as React from "react";
+// import Table from "@mui/material/Table";
+// import TableBody from "@mui/material/TableBody";
+// import TableCell from "@mui/material/TableCell";
+// import TableContainer from "@mui/material/TableContainer";
+// import TableHead from "@mui/material/TableHead";
+// import TableRow from "@mui/material/TableRow";
+// import Paper from "@mui/material/Paper";
+// import { Button } from "@mui/material";
+import React, { useState, Fragment } from "react";
+import { nanoid } from "nanoid";
+import "../App.css";
+import data from "../mockUserData.json";
+import ReadOnlyRow from "./common/ReadOnlyRow";
+import EditableRow from "./common/EditableRow";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 
-function createUserCategory(asset_list, user_role) {
-  return { asset_list, user_role };
-}
-
-function createUser(user_name, user_id) {
-  return { user_name, user_id };
-}
-const rows = [
-  createUserCategory([createUser("Shubham", "sj2181")], "Admin"),
-  createUserCategory([createUser("Shubh", "dsh932")], "Internal"),
-];
 function UserTable(props) {
+  const [contacts, setContacts] = useState(data);
+  const [addFormData, setAddFormData] = useState({
+    fullName: "",
+    address: "",
+    phoneNumber: "",
+    email: "",
+  });
+
+  const [editFormData, setEditFormData] = useState({
+    fullName: "",
+    address: "",
+    phoneNumber: "",
+    email: "",
+  });
+
+  const [editContactId, setEditContactId] = useState(null);
+
+  const handleAddFormChange = (event) => {
+    event.preventDefault();
+
+    const fieldName = event.target.getAttribute("name");
+    const fieldValue = event.target.value;
+
+    const newFormData = { ...addFormData };
+    newFormData[fieldName] = fieldValue;
+
+    setAddFormData(newFormData);
+  };
+
+  const handleEditFormChange = (event) => {
+    event.preventDefault();
+
+    const fieldName = event.target.getAttribute("name");
+    const fieldValue = event.target.value;
+
+    const newFormData = { ...editFormData };
+    newFormData[fieldName] = fieldValue;
+
+    setEditFormData(newFormData);
+  };
+
+  const handleAddFormSubmit = (event) => {
+    event.preventDefault();
+
+    const newContact = {
+      id: nanoid(),
+      fullName: addFormData.fullName,
+      address: addFormData.address,
+      phoneNumber: addFormData.phoneNumber,
+      email: addFormData.email,
+    };
+
+    const newContacts = [...contacts, newContact];
+    setContacts(newContacts);
+  };
+
+  const handleEditFormSubmit = (event) => {
+    event.preventDefault();
+
+    const editedContact = {
+      id: editContactId,
+      fullName: editFormData.fullName,
+      address: editFormData.address,
+      phoneNumber: editFormData.phoneNumber,
+      email: editFormData.email,
+    };
+
+    const newContacts = [...contacts];
+
+    const index = contacts.findIndex((contact) => contact.id === editContactId);
+
+    newContacts[index] = editedContact;
+
+    setContacts(newContacts);
+    setEditContactId(null);
+  };
+
+  const handleEditClick = (event, contact) => {
+    event.preventDefault();
+    setEditContactId(contact.id);
+
+    const formValues = {
+      fullName: contact.fullName,
+      address: contact.address,
+      phoneNumber: contact.phoneNumber,
+      email: contact.email,
+    };
+
+    setEditFormData(formValues);
+  };
+
+  const handleCancelClick = () => {
+    setEditContactId(null);
+  };
+
+  const handleDeleteClick = (contactId) => {
+    const newContacts = [...contacts];
+
+    const index = contacts.findIndex((contact) => contact.id === contactId);
+
+    newContacts.splice(index, 1);
+
+    setContacts(newContacts);
+  };
   return (
     <>
-    <Navbar />
-      <TableContainer
-        style={{ maxWidth: 2500, minWidth: 600 }}
-        component={Paper}
-      >
-        <Table aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell align="right">userId</TableCell>
-              <TableCell align="right">Role</TableCell>
-              <TableCell align="right">Name</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows.map((row, index) => (
-              <TableRow
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell align="right">
-                  {row.asset_list.map((item) => (
-                    <TableCell align="right">{item.user_id}</TableCell>
-                  ))}
-                </TableCell>
+      <Navbar />
 
-                <TableCell align="right">{row.user_role}</TableCell>
+      <div className="app-container">
+        <form onSubmit={handleEditFormSubmit}>
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Address</th>
+                <th>Phone Number</th>
+                <th>Email</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {contacts.map((contact) => (
+                <Fragment>
+                  {editContactId === contact.id ? (
+                    <EditableRow
+                      editFormData={editFormData}
+                      handleEditFormChange={handleEditFormChange}
+                      handleCancelClick={handleCancelClick}
+                    />
+                  ) : (
+                    <ReadOnlyRow
+                      contact={contact}
+                      handleEditClick={handleEditClick}
+                      handleDeleteClick={handleDeleteClick}
+                    />
+                  )}
+                </Fragment>
+              ))}
+            </tbody>
+          </table>
+        </form>
 
-                <TableCell align="right">
-                  {row.asset_list.map((item) => (
-                    <TableCell align="right">{item.user_name}</TableCell>
-                  ))}
-                </TableCell>
-
-                <TableCell align="right">
-                  <Button size="small" variant="outlined" color="info">
-                    Edit
-                  </Button>
-                  <Button size="small" variant="outlined" color="error">
-                    Delete
-                  </Button>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      <Footer/>
+        <h2>Add a Contact</h2>
+        <form onSubmit={handleAddFormSubmit}>
+          <input
+            type="text"
+            name="fullName"
+            required="required"
+            placeholder="Enter a name..."
+            onChange={handleAddFormChange}
+          />
+          <input
+            type="text"
+            name="address"
+            required="required"
+            placeholder="Enter an addres..."
+            onChange={handleAddFormChange}
+          />
+          <input
+            type="text"
+            name="phoneNumber"
+            required="required"
+            placeholder="Enter a phone number..."
+            onChange={handleAddFormChange}
+          />
+          <input
+            type="email"
+            name="email"
+            required="required"
+            placeholder="Enter an email..."
+            onChange={handleAddFormChange}
+          />
+          <button type="submit">Add</button>
+        </form>
+      </div>
+      <Footer />
     </>
   );
 }
