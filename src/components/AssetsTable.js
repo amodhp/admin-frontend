@@ -162,34 +162,34 @@ function AssetsTable(props) {
           </table>
         </form>
 
-        <h2>Add a Contact</h2>
+        <h2>Add an Asset</h2>
         <form onSubmit={handleAddFormSubmit}>
           <input
             type="text"
             name="assetName"
             required="required"
-            placeholder="Enter a name..."
+            placeholder="Enter an asset name..."
             onChange={handleAddFormChange}
           />
           <input
             type="text"
             name="category"
             required="required"
-            placeholder="Enter an addres..."
+            placeholder="Enter a category..."
             onChange={handleAddFormChange}
           />
           <input
             type="text"
             name="phoneNumber"
             required="required"
-            placeholder="Enter a phone number..."
+            placeholder="Enter a category id..."
             onChange={handleAddFormChange}
           />
           <input
             type="email"
             name="email"
             required="required"
-            placeholder="Enter an email..."
+            placeholder="Enter an asset id.."
             onChange={handleAddFormChange}
           />
           <button type="submit">Add</button>

@@ -160,7 +160,7 @@ function UserTable(props) {
           </table>
         </form>
 
-        <h2>Add a Contact</h2>
+        <h2>Add a User</h2>
         <form onSubmit={handleAddFormSubmit}>
           <input
             type="text"
