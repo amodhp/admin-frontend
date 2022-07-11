@@ -163,6 +163,7 @@ function AssetsTable(props) {
               color: "white",
               cursor: "pointer",
               width: 100,
+              marginLeft: 100,
               border: 0,
             }}
             type="submit"
