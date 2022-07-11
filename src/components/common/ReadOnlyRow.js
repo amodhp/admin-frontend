@@ -1,4 +1,5 @@
 import React from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const ReadOnlyRow = ({
   tableType,
@@ -17,12 +18,16 @@ const ReadOnlyRow = ({
           <td>
             <button
               check="button"
+              class="form-field"
+              style={{background: "#4caf50",color: "white", cursor: "pointer"}}
               onClick={(event) => handleEditClick(event, contact)}
             >
               Edit
             </button>
             <button
               check="button"
+              class="form-field"
+              style={{background: "#FF0000",color: "white", cursor: "pointer"}}
               onClick={() => handleDeleteClick(contact.id)}
             >
               Delete
@@ -40,12 +45,16 @@ const ReadOnlyRow = ({
           <td>
             <button
               check="button"
+              class="form-field"
+              style={{background: "#4caf50",color: "white", cursor: "pointer"}}
               onClick={(event) => handleEditClick(event, contact)}
             >
               Edit
             </button>
             <button
               check="button"
+              class="form-field"
+              style={{background: "#FF0000",color: "white", cursor: "pointer"}}
               onClick={() => handleDeleteClick(contact.assetId)}
             >
               Delete

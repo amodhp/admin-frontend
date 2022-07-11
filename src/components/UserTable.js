@@ -124,42 +124,7 @@ function UserTable(props) {
   return (
     <>
       <Navbar />
-
-      <div className="app-container">
-        <form onSubmit={handleEditFormSubmit}>
-          <table>
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Address</th>
-                <th>Phone Number</th>
-                <th>Email</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {contacts.map((contact) => (
-                <Fragment>
-                  {editContactId === contact.id ? (
-                    <EditableRow
-                      editFormData={editFormData}
-                      handleEditFormChange={handleEditFormChange}
-                      handleCancelClick={handleCancelClick}
-                    />
-                  ) : (
-                    <ReadOnlyRow
-                      contact={contact}
-                      tableType={'Users'}
-                      handleEditClick={handleEditClick}
-                      handleDeleteClick={handleDeleteClick}
-                    />
-                  )}
-                </Fragment>
-              ))}
-            </tbody>
-          </table>
-        </form>
-
+      <div className="insert-user-container">
         <h2>Add a User</h2>
         <form onSubmit={handleAddFormSubmit}>
           <input
@@ -190,7 +155,46 @@ function UserTable(props) {
             placeholder="Enter an email..."
             onChange={handleAddFormChange}
           />
-          <button type="submit">Add</button>
+          <button 
+          style={{background: "#4caf50",color: "white", cursor: "pointer",width:100}}
+          type="submit">
+            Add</button>
+        </form>
+      </div>
+
+      <div className="app-container">
+        <form onSubmit={handleEditFormSubmit}>
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Address</th>
+                <th>Phone Number</th>
+                <th>Email</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {contacts.map((contact) => (
+                <Fragment>
+                  {editContactId === contact.id ? (
+                    <EditableRow
+                      editFormData={editFormData}
+                      handleEditFormChange={handleEditFormChange}
+                      handleCancelClick={handleCancelClick}
+                    />
+                  ) : (
+                    <ReadOnlyRow
+                      contact={contact}
+                      tableType={"Users"}
+                      handleEditClick={handleEditClick}
+                      handleDeleteClick={handleDeleteClick}
+                    />
+                  )}
+                </Fragment>
+              ))}
+            </tbody>
+          </table>
         </form>
       </div>
       <Footer />

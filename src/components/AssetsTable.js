@@ -16,21 +16,19 @@ import EditableRow from "./common/EditableRow";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 
-
-
 function AssetsTable(props) {
   const [contacts, setContacts] = useState(data);
   const [addFormData, setAddFormData] = useState({
     assetName: "",
     category: "",
-   categoryId: "",
+    categoryId: "",
     assetId: "",
   });
 
   const [editFormData, setEditFormData] = useState({
     assetName: "",
     category: "",
-   categoryId: "",
+    categoryId: "",
     assetId: "",
   });
 
@@ -67,7 +65,7 @@ function AssetsTable(props) {
       id: nanoid(),
       assetName: addFormData.assetName,
       category: addFormData.category,
-     categoryId: addFormData.phoneNumber,
+      categoryId: addFormData.phoneNumber,
       assetId: addFormData.assetId,
     };
 
@@ -82,13 +80,15 @@ function AssetsTable(props) {
       id: editContactId,
       assetName: editFormData.assetName,
       category: editFormData.category,
-     categoryId: editFormData.phoneNumber,
+      categoryId: editFormData.phoneNumber,
       assetId: editFormData.assetId,
     };
 
     const newContacts = [...contacts];
 
-    const index = contacts.findIndex((contact) => contact.assetId === editContactId);
+    const index = contacts.findIndex(
+      (contact) => contact.assetId === editContactId
+    );
 
     newContacts[index] = editedContact;
 
@@ -103,7 +103,7 @@ function AssetsTable(props) {
     const formValues = {
       assetName: contact.assetName,
       category: contact.category,
-     categoryId: contact.categoryId,
+      categoryId: contact.categoryId,
       assetId: contact.assetId,
     };
 
@@ -126,42 +126,7 @@ function AssetsTable(props) {
   return (
     <>
       <Navbar />
-
-      <div className="app-container">
-        <form onSubmit={handleEditFormSubmit}>
-          <table>
-            <thead>
-              <tr>
-                <th>Asset Name</th>
-                <th>Category</th>
-                <th>Category Id</th>
-                <th>Asset Id</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {contacts.map((contact) => (
-                <Fragment>
-                  {editContactId === contact.id ? (
-                    <EditableRow
-                      editFormData={editFormData}
-                      handleEditFormChange={handleEditFormChange}
-                      handleCancelClick={handleCancelClick}
-                    />
-                  ) : (
-                    <ReadOnlyRow
-                      contact={contact}
-                      tableType={'Assets'}
-                      handleEditClick={handleEditClick}
-                      handleDeleteClick={handleDeleteClick}
-                    />
-                  )}
-                </Fragment>
-              ))}
-            </tbody>
-          </table>
-        </form>
-
+      <div className="insert-user-container">
         <h2>Add an Asset</h2>
         <form onSubmit={handleAddFormSubmit}>
           <input
@@ -192,7 +157,52 @@ function AssetsTable(props) {
             placeholder="Enter an asset id.."
             onChange={handleAddFormChange}
           />
-          <button type="submit">Add</button>
+          <button
+            style={{
+              background: "#4caf50",
+              color: "white",
+              cursor: "pointer",
+              width: 100,
+            }}
+            type="submit"
+          >
+            Add
+          </button>
+        </form>
+      </div>
+      <div className="app-container">
+        <form onSubmit={handleEditFormSubmit}>
+          <table>
+            <thead>
+              <tr>
+                <th>Asset Name</th>
+                <th>Category</th>
+                <th>Category Id</th>
+                <th>Asset Id</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {contacts.map((contact) => (
+                <Fragment>
+                  {editContactId === contact.id ? (
+                    <EditableRow
+                      editFormData={editFormData}
+                      handleEditFormChange={handleEditFormChange}
+                      handleCancelClick={handleCancelClick}
+                    />
+                  ) : (
+                    <ReadOnlyRow
+                      contact={contact}
+                      tableType={"Assets"}
+                      handleEditClick={handleEditClick}
+                      handleDeleteClick={handleDeleteClick}
+                    />
+                  )}
+                </Fragment>
+              ))}
+            </tbody>
+          </table>
         </form>
       </div>
       <Footer />
