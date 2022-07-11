@@ -18,19 +18,37 @@ const ReadOnlyRow = ({
           <td>
             <button
               check="button"
-              class="form-field"
-              style={{background: "#4caf50",color: "white", cursor: "pointer"}}
+              class="form-field-action-button"
+              style={{
+                background: "#4caf50",
+                color: "white",
+                cursor: "pointer",
+                paddingRight: 10,
+                paddingLeft: 10,
+                paddingTop: 5,
+                border: 0,
+                borderRadius: 5,
+              }}
               onClick={(event) => handleEditClick(event, contact)}
             >
-              Edit
+              <p class="small-text">Update</p>
             </button>
             <button
               check="button"
-              class="form-field"
-              style={{background: "#FF0000",color: "white", cursor: "pointer"}}
+              class="form-field-action-button"
+              style={{
+                background: "#FF0000",
+                color: "white",
+                cursor: "pointer",
+                paddingRight: 10,
+                paddingLeft: 10,
+                paddingTop: 5,
+                border: 0,
+                borderRadius: 5,
+              }}
               onClick={() => handleDeleteClick(contact.id)}
             >
-              Delete
+              <p class="small-text">Delete</p>
             </button>
           </td>
         </tr>
@@ -45,19 +63,37 @@ const ReadOnlyRow = ({
           <td>
             <button
               check="button"
-              class="form-field"
-              style={{background: "#4caf50",color: "white", cursor: "pointer"}}
+              class="form-field-action-button"
+              style={{
+                background: "#4caf50",
+                color: "white",
+                cursor: "pointer",
+                paddingRight: 10,
+                paddingLeft: 10,
+                paddingTop: 5,
+                border: 0,
+                borderRadius: 5,
+              }}
               onClick={(event) => handleEditClick(event, contact)}
             >
-              Edit
+              <p class="small-text">Update</p>
             </button>
             <button
               check="button"
-              class="form-field"
-              style={{background: "#FF0000",color: "white", cursor: "pointer"}}
-              onClick={() => handleDeleteClick(contact.assetId)}
+              class="form-field-action-button"
+              style={{
+                background: "#FF0000",
+                color: "white",
+                cursor: "pointer",
+                paddingRight: 10,
+                paddingLeft: 10,
+                paddingTop: 5,
+                border: 0,
+                borderRadius: 5,
+              }}
+              onClick={() => handleDeleteClick(contact.id)}
             >
-              Delete
+              <p class="small-text">Delete</p>
             </button>
           </td>
         </tr>
