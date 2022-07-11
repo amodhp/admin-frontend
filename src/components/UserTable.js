@@ -155,10 +155,19 @@ function UserTable(props) {
             placeholder="Enter an email..."
             onChange={handleAddFormChange}
           />
-          <button 
-          style={{background: "#4caf50",color: "white", cursor: "pointer",width:100}}
-          type="submit">
-            Add</button>
+          <button
+            style={{
+              background: "#4caf50",
+              color: "white",
+              cursor: "pointer",
+              width: 100,
+              marginLeft: 100,
+              border: 0,
+            }}
+            type="submit"
+          >
+            Add
+          </button>
         </form>
       </div>
 

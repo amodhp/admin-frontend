@@ -151,8 +151,7 @@ function AssetsTable(props) {
             onChange={handleAddFormChange}
           />
           <input
-            type="email"
-            name="email"
+            type="text"
             required="required"
             placeholder="Enter an asset id.."
             onChange={handleAddFormChange}
@@ -163,6 +162,8 @@ function AssetsTable(props) {
               color: "white",
               cursor: "pointer",
               width: 100,
+              marginLeft: 100,
+              border: 0,
             }}
             type="submit"
           >
