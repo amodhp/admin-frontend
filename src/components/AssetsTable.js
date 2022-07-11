@@ -127,42 +127,43 @@ function AssetsTable(props) {
     <>
       <Navbar />
       <div className="insert-user-container">
-        <h2>Add an Asset</h2>
+        {/* <h2>Add an Asset</h2> */}
         <form onSubmit={handleAddFormSubmit}>
           <input
             type="text"
             name="assetName"
             required="required"
-            placeholder="Enter an asset name..."
+            placeholder="Asset"
             onChange={handleAddFormChange}
           />
           <input
             type="text"
             name="category"
             required="required"
-            placeholder="Enter a category..."
+            placeholder="Category"
             onChange={handleAddFormChange}
           />
           <input
             type="text"
-            name="phoneNumber"
+            name="categoryid"
             required="required"
-            placeholder="Enter a category id..."
+            placeholder="Category ID"
             onChange={handleAddFormChange}
           />
           <input
-            type="email"
-            name="email"
+            type="text"
+            name="assetid"
             required="required"
-            placeholder="Enter an asset id.."
+            placeholder="Asset ID"
             onChange={handleAddFormChange}
           />
           <button
             style={{
-              background: "#4caf50",
+              background: "blue",
               color: "white",
               cursor: "pointer",
               width: 100,
+              border: 0,
             }}
             type="submit"
           >
