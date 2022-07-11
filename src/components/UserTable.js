@@ -125,43 +125,42 @@ function UserTable(props) {
     <>
       <Navbar />
       <div className="insert-user-container">
-        <h2>Add a User</h2>
+        {/* <h2>Add a User</h2> */}
         <form onSubmit={handleAddFormSubmit}>
           <input
             type="text"
             name="fullName"
             required="required"
-            placeholder="Enter a name..."
+            placeholder="Name"
             onChange={handleAddFormChange}
           />
           <input
             type="text"
             name="address"
             required="required"
-            placeholder="Enter an addres..."
+            placeholder="Address"
             onChange={handleAddFormChange}
           />
           <input
             type="text"
             name="phoneNumber"
             required="required"
-            placeholder="Enter a phone number..."
+            placeholder="Phone Number"
             onChange={handleAddFormChange}
           />
           <input
             type="email"
             name="email"
             required="required"
-            placeholder="Enter an email..."
+            placeholder="Email"
             onChange={handleAddFormChange}
           />
           <button
             style={{
-              background: "#4caf50",
+              background: "blue",
               color: "white",
               cursor: "pointer",
               width: 100,
-              marginLeft: 100,
               border: 0,
             }}
             type="submit"
