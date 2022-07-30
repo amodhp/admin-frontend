@@ -1,12 +1,20 @@
-import React from "react";
+import React, { useState, Fragment, useRef } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import  Dialog from "../Dialog";
+
+
+
 
 const ReadOnlyRow = ({
   tableType,
   contact,
   handleEditClick,
   handleDeleteClick,
+  handleDelete,
+  areUSureDelete,
+  dialog,
 }) => {
+  
   const checkType = (check) => {
     if (check == "Users") {
       return (
@@ -46,10 +54,19 @@ const ReadOnlyRow = ({
                 border: 0,
                 borderRadius: 5,
               }}
-              onClick={() => handleDeleteClick(contact.id)}
+              // onClick={() => handleDeleteClick(contact.id)}
+              onClick={() =>  handleDelete(contact.id)}
             >
               <p class="small-text">Delete</p>
             </button>
+            {dialog.isLoading && (
+              <Dialog
+                //Update
+                nameProduct={dialog.nameProduct}
+                onDialog={areUSureDelete}
+                message={dialog.message}
+              />
+            )}
           </td>
         </tr>
       );
@@ -91,12 +108,24 @@ const ReadOnlyRow = ({
                 border: 0,
                 borderRadius: 5,
               }}
-              onClick={() => handleDeleteClick(contact.id)}
+              // onClick={() => handleDeleteClick(contact.assetId)}
+              onClick={() =>  handleDelete(contact.assetId)}
+
             >
+              
               <p class="small-text">Delete</p>
             </button>
+            {dialog.isLoading && (
+              <Dialog
+                //Update
+                nameProduct={dialog.nameProduct}
+                onDialog={areUSureDelete}
+                message={dialog.message}
+              />
+            )}
           </td>
         </tr>
+
       );
     }
   };

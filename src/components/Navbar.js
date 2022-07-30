@@ -1,32 +1,37 @@
 import React, { useState } from "react";
 import "../styles/navbar.css";
-import logo from './../logo.png';
+import logo from "./../logo.png";
 
 export default function Navbar() {
   const [showMediaIcons, setShowMediaIcons] = useState(false);
   return (
     <>
-    <nav className="main-nav">
+      <nav className="main-nav">
         <div className="logo">
-          <img src={logo} alt="Logo"
-          style={{width:100}} />
+          <img src={logo} alt="Logo" style={{ width: 100 }} />
         </div>
 
         <div
           className={
             showMediaIcons ? "menu-link mobile-menu-link" : "menu-link"
-          }>
+          }
+        >
           <ul>
             <li class="nav-item active">
-            <a class="nav-link" href="/users">
-            Users
-            </a>
+              <a class="nav-link" href="/users">
+                Users
+              </a>
               {/* <NavLink class="nav-link" to="/users"></NavLink> */}
             </li>
             <li class="nav-item active">
-            <a class="nav-link" href="/assets">
-              Assets
-            </a>
+              <a class="nav-link" href="/assets">
+                Assets
+              </a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="/logs">
+                Logs
+              </a>
             </li>
           </ul>
         </div>
@@ -63,6 +68,5 @@ export default function Navbar() {
       </div>
     </nav> */}
     </>
-    
   );
 }

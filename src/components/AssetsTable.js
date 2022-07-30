@@ -7,7 +7,7 @@
 // import TableRow from "@mui/material/TableRow";
 // import Paper from "@mui/material/Paper";
 // import { Button } from "@mui/material";
-import React, { useState, Fragment } from "react";
+import React, { useState, Fragment, useRef } from "react";
 import { nanoid } from "nanoid";
 import "../styles/Table.css";
 import data from "../mockAssetData.json";
@@ -31,6 +31,33 @@ function AssetsTable(props) {
     categoryId: "",
     assetId: "",
   });
+  const [dialog, setDialog] = useState({
+    message: "",
+    isLoading: false,
+    //Update
+    nameProduct: "",
+  });
+  const idProductRef = useRef();
+
+  const [deleteId, setDeleteId] = useState();
+  const areUSureDelete = (choose) => {
+    if (choose) {
+      // handleDeleteClick(contact)
+      // setContacts(contacts.filter((contact) => contact.id !== idProductRef.current));
+      const newContacts = [...contacts];
+
+      const index = contacts.findIndex(
+        (contact) => contact.assetId === deleteId
+      );
+
+      newContacts.splice(index, 1);
+
+      setContacts(newContacts);
+      handleDialog("", false);
+    } else {
+      handleDialog("", false);
+    }
+  };
 
   const [editContactId, setEditContactId] = useState(null);
 
@@ -117,11 +144,35 @@ function AssetsTable(props) {
   const handleDeleteClick = (contactId) => {
     const newContacts = [...contacts];
 
-    const index = contacts.findIndex((contact) => contact.id === contactId);
+    const index = contacts.findIndex(
+      (contact) => contact.assetId === contactId
+    );
 
     newContacts.splice(index, 1);
 
     setContacts(newContacts);
+  };
+  const handleDelete = (id) => {
+    //Update
+    const index = contacts.findIndex((contact) => contact.assetId === id);
+    setDeleteId(id)
+    console.log("Reached in handleDelete");
+
+    handleDialog(
+      "Are you sure you want to delete?",
+      true,
+      contacts[index].assetName
+    );
+    idProductRef.current = id;
+  };
+  const handleDialog = (message, isLoading, nameProduct) => {
+    console.log("Reached in handleDialog");
+    setDialog({
+      message,
+      isLoading,
+      //Update
+      nameProduct,
+    });
   };
   return (
     <>
@@ -199,6 +250,11 @@ function AssetsTable(props) {
                       tableType={"Assets"}
                       handleEditClick={handleEditClick}
                       handleDeleteClick={handleDeleteClick}
+                      handleDelete={handleDelete}
+                      areUSureDelete={areUSureDelete}
+                      // message = {message}
+                      dialog={dialog}
+                      // isLoading = {isLoading}
                     />
                   )}
                 </Fragment>

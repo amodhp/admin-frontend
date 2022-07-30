@@ -7,7 +7,7 @@
 // import TableRow from "@mui/material/TableRow";
 // import Paper from "@mui/material/Paper";
 // import { Button } from "@mui/material";
-import React, { useState, Fragment } from "react";
+import React, { useState, Fragment, useRef } from "react";
 import { nanoid } from "nanoid";
 import "../styles/Table.css";
 import data from "../mockUserData.json";
@@ -31,6 +31,31 @@ function UserTable(props) {
     phoneNumber: "",
     email: "",
   });
+  const [dialog, setDialog] = useState({
+    message: "",
+    isLoading: false,
+    //Update
+    nameProduct: "",
+  });
+  const idProductRef = useRef();
+
+  const [deleteId, setDeleteId] = useState();
+  const areUSureDelete = (choose) => {
+    if (choose) {
+      const newContacts = [...contacts];
+
+      const index = contacts.findIndex(
+        (contact) => contact.id === deleteId
+      );
+
+      newContacts.splice(index, 1);
+
+      setContacts(newContacts);
+      handleDialog("", false);
+    } else {
+      handleDialog("", false);
+    }
+  };
 
   const [editContactId, setEditContactId] = useState(null);
 
@@ -121,6 +146,28 @@ function UserTable(props) {
 
     setContacts(newContacts);
   };
+  const handleDelete = (id) => {
+    //Update
+    const index = contacts.findIndex((contact) => contact.id === id);
+    setDeleteId(id)
+    console.log("Reached in handleDelete");
+
+    handleDialog(
+      "Are you sure you want to delete?",
+      true,
+      contacts[index].fullName
+    );
+    idProductRef.current = id;
+  };
+  const handleDialog = (message, isLoading, nameProduct) => {
+    console.log("Reached in handleDialog");
+    setDialog({
+      message,
+      isLoading,
+      //Update
+      nameProduct,
+    });
+  };
   return (
     <>
       <Navbar />
@@ -197,6 +244,9 @@ function UserTable(props) {
                       tableType={"Users"}
                       handleEditClick={handleEditClick}
                       handleDeleteClick={handleDeleteClick}
+                      handleDelete={handleDelete}
+                      areUSureDelete={areUSureDelete}
+                      dialog={dialog}
                     />
                   )}
                 </Fragment>
