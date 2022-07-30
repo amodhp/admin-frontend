@@ -16,21 +16,19 @@ import EditableRow from "./common/EditableRow";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 
-
-
 function AssetsTable(props) {
   const [contacts, setContacts] = useState(data);
   const [addFormData, setAddFormData] = useState({
     assetName: "",
     category: "",
-   categoryId: "",
+    categoryId: "",
     assetId: "",
   });
 
   const [editFormData, setEditFormData] = useState({
     assetName: "",
     category: "",
-   categoryId: "",
+    categoryId: "",
     assetId: "",
   });
 
@@ -67,7 +65,7 @@ function AssetsTable(props) {
       id: nanoid(),
       assetName: addFormData.assetName,
       category: addFormData.category,
-     categoryId: addFormData.phoneNumber,
+      categoryId: addFormData.phoneNumber,
       assetId: addFormData.assetId,
     };
 
@@ -82,13 +80,15 @@ function AssetsTable(props) {
       id: editContactId,
       assetName: editFormData.assetName,
       category: editFormData.category,
-     categoryId: editFormData.phoneNumber,
+      categoryId: editFormData.phoneNumber,
       assetId: editFormData.assetId,
     };
 
     const newContacts = [...contacts];
 
-    const index = contacts.findIndex((contact) => contact.assetId === editContactId);
+    const index = contacts.findIndex(
+      (contact) => contact.assetId === editContactId
+    );
 
     newContacts[index] = editedContact;
 
@@ -103,7 +103,7 @@ function AssetsTable(props) {
     const formValues = {
       assetName: contact.assetName,
       category: contact.category,
-     categoryId: contact.categoryId,
+      categoryId: contact.categoryId,
       assetId: contact.assetId,
     };
 
@@ -126,7 +126,52 @@ function AssetsTable(props) {
   return (
     <>
       <Navbar />
-
+      <div className="insert-user-container">
+        {/* <h2>Add an Asset</h2> */}
+        <form onSubmit={handleAddFormSubmit}>
+          <input
+            type="text"
+            name="assetName"
+            required="required"
+            placeholder="Asset"
+            onChange={handleAddFormChange}
+          />
+          <input
+            type="text"
+            name="category"
+            required="required"
+            placeholder="Category"
+            onChange={handleAddFormChange}
+          />
+          <input
+            type="text"
+            name="categoryid"
+            required="required"
+            placeholder="Category ID"
+            onChange={handleAddFormChange}
+          />
+          <input
+            type="text"
+            name="assetid"
+            required="required"
+            placeholder="Asset ID"
+            onChange={handleAddFormChange}
+          />
+          <button
+            style={{
+              background: "blue",
+              color: "white",
+              cursor: "pointer",
+              width: 100,
+              marginLeft: 100,
+              border: 0,
+            }}
+            type="submit"
+          >
+            Add
+          </button>
+        </form>
+      </div>
       <div className="app-container">
         <form onSubmit={handleEditFormSubmit}>
           <table>
@@ -151,7 +196,7 @@ function AssetsTable(props) {
                   ) : (
                     <ReadOnlyRow
                       contact={contact}
-                      tableType={'Assets'}
+                      tableType={"Assets"}
                       handleEditClick={handleEditClick}
                       handleDeleteClick={handleDeleteClick}
                     />
@@ -160,39 +205,6 @@ function AssetsTable(props) {
               ))}
             </tbody>
           </table>
-        </form>
-
-        <h2>Add an Asset</h2>
-        <form onSubmit={handleAddFormSubmit}>
-          <input
-            type="text"
-            name="assetName"
-            required="required"
-            placeholder="Enter an asset name..."
-            onChange={handleAddFormChange}
-          />
-          <input
-            type="text"
-            name="category"
-            required="required"
-            placeholder="Enter a category..."
-            onChange={handleAddFormChange}
-          />
-          <input
-            type="text"
-            name="phoneNumber"
-            required="required"
-            placeholder="Enter a category id..."
-            onChange={handleAddFormChange}
-          />
-          <input
-            type="email"
-            name="email"
-            required="required"
-            placeholder="Enter an asset id.."
-            onChange={handleAddFormChange}
-          />
-          <button type="submit">Add</button>
         </form>
       </div>
       <Footer />

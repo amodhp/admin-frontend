@@ -124,6 +124,51 @@ function UserTable(props) {
   return (
     <>
       <Navbar />
+      <div className="insert-user-container">
+        {/* <h2>Add a User</h2> */}
+        <form onSubmit={handleAddFormSubmit}>
+          <input
+            type="text"
+            name="fullName"
+            required="required"
+            placeholder="Name"
+            onChange={handleAddFormChange}
+          />
+          <input
+            type="text"
+            name="address"
+            required="required"
+            placeholder="Address"
+            onChange={handleAddFormChange}
+          />
+          <input
+            type="text"
+            name="phoneNumber"
+            required="required"
+            placeholder="Phone Number"
+            onChange={handleAddFormChange}
+          />
+          <input
+            type="email"
+            name="email"
+            required="required"
+            placeholder="Email"
+            onChange={handleAddFormChange}
+          />
+          <button
+            style={{
+              background: "blue",
+              color: "white",
+              cursor: "pointer",
+              width: 100,
+              border: 0,
+            }}
+            type="submit"
+          >
+            Add
+          </button>
+        </form>
+      </div>
 
       <div className="app-container">
         <form onSubmit={handleEditFormSubmit}>
@@ -149,7 +194,7 @@ function UserTable(props) {
                   ) : (
                     <ReadOnlyRow
                       contact={contact}
-                      tableType={'Users'}
+                      tableType={"Users"}
                       handleEditClick={handleEditClick}
                       handleDeleteClick={handleDeleteClick}
                     />
@@ -158,39 +203,6 @@ function UserTable(props) {
               ))}
             </tbody>
           </table>
-        </form>
-
-        <h2>Add a User</h2>
-        <form onSubmit={handleAddFormSubmit}>
-          <input
-            type="text"
-            name="fullName"
-            required="required"
-            placeholder="Enter a name..."
-            onChange={handleAddFormChange}
-          />
-          <input
-            type="text"
-            name="address"
-            required="required"
-            placeholder="Enter an addres..."
-            onChange={handleAddFormChange}
-          />
-          <input
-            type="text"
-            name="phoneNumber"
-            required="required"
-            placeholder="Enter a phone number..."
-            onChange={handleAddFormChange}
-          />
-          <input
-            type="email"
-            name="email"
-            required="required"
-            placeholder="Enter an email..."
-            onChange={handleAddFormChange}
-          />
-          <button type="submit">Add</button>
         </form>
       </div>
       <Footer />
