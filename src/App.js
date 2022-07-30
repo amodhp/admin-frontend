@@ -3,6 +3,7 @@ import "./App.css";
 import HomeScreen from "./components/HomeScreen";
 import AssetsTable from "./components/AssetsTable";
 import UserTable from "./components/UserTable";
+import Logs from "./components/Logs";
 import {
   BrowserRouter as Router,
   Switch,
@@ -43,6 +44,7 @@ function App() {
         <Route path="/" component={Login} exact />
         <Route path="/assets" component={AssetsTable} />
         <Route path="/users" component={UserTable} />
+        <Route path="/logs" component={Logs} />
 
     </Router>
 
