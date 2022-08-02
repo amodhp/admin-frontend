@@ -7,7 +7,7 @@ import  Dialog from "../Dialog";
 
 const ReadOnlyRow = ({
   tableType,
-  contact,
+  item,
   handleEditClick,
   handleDeleteClick,
   handleDelete,
@@ -19,10 +19,10 @@ const ReadOnlyRow = ({
     if (check == "Users") {
       return (
         <tr>
-          <td>{contact.fullName}</td>
-          <td>{contact.address}</td>
-          <td>{contact.phoneNumber}</td>
-          <td>{contact.email}</td>
+          <td>{item.fullName}</td>
+          <td>{item.address}</td>
+          <td>{item.phoneNumber}</td>
+          <td>{item.email}</td>
           <td>
             <button
               check="button"
@@ -37,7 +37,7 @@ const ReadOnlyRow = ({
                 border: 0,
                 borderRadius: 5,
               }}
-              onClick={(event) => handleEditClick(event, contact)}
+              onClick={(event) => handleEditClick(event, item)}
             >
               <p class="small-text">Update</p>
             </button>
@@ -54,8 +54,8 @@ const ReadOnlyRow = ({
                 border: 0,
                 borderRadius: 5,
               }}
-              // onClick={() => handleDeleteClick(contact.id)}
-              onClick={() =>  handleDelete(contact.id)}
+              // onClick={() => handleDeleteClick(item.id)}
+              onClick={() =>  handleDelete(item.id)}
             >
               <p class="small-text">Delete</p>
             </button>
@@ -73,10 +73,10 @@ const ReadOnlyRow = ({
     } else if (check === "Assets") {
       return (
         <tr>
-          <td>{contact.assetName}</td>
-          <td>{contact.category}</td>
-          <td>{contact.categoryId}</td>
-          <td>{contact.assetId}</td>
+          <td>{item.asset_name}</td>
+          <td>{"item.category"}</td>
+          <td>{"item.categoryId"}</td>
+          <td>{"item.assetId"}</td>
           <td>
             <button
               check="button"
@@ -91,7 +91,7 @@ const ReadOnlyRow = ({
                 border: 0,
                 borderRadius: 5,
               }}
-              onClick={(event) => handleEditClick(event, contact)}
+              onClick={(event) => handleEditClick(event, item)}
             >
               <p class="small-text">Update</p>
             </button>
@@ -108,8 +108,9 @@ const ReadOnlyRow = ({
                 border: 0,
                 borderRadius: 5,
               }}
-              // onClick={() => handleDeleteClick(contact.assetId)}
-              onClick={() =>  handleDelete(contact.assetId)}
+              // onClick={() => handleDeleteClick(item.assetId)}
+              onClick={() =>  handleDelete(item.assetId)}
+              // onClick={() =>  console.log(item.asset_name)}
 
             >
               
@@ -132,7 +133,7 @@ const ReadOnlyRow = ({
 
   return checkType(tableType);
   // <tr>
-  //   <td>{contact.fullName}</td>
+  //   <td>{item.fullName}</td>
   //   <td>{contact.address}</td>
   //   <td>{contact.phoneNumber}</td>
   //   <td>{contact.email}</td>

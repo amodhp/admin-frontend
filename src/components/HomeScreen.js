@@ -12,18 +12,21 @@ import {
   useHistory,
   useLocation,
   useNavigate
+
 } from "react-router-dom";
 import { fontSize } from "@mui/system";
 import axios from 'axios'
 
 function Login() {
   const history = useHistory();
-  const navigate=useNavigate()
+  // const navigate=useNavigate();
+
+
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const assetsPage = (username, password) => {
+  const LoginNextPage = (username, password) => {
 
     const params = JSON.stringify({
       username: username,
@@ -39,7 +42,8 @@ function Login() {
       .then(function (response) {
         console.log(response.data);
         console.log('Next Page ')
-        history.push("/assets");
+        // history.push("/users");
+        // navigate('/assets')
 
      
       })
@@ -86,7 +90,7 @@ function Login() {
           </div>
           {/* <span id="email-error">Please enter an password</span> */}
           <button
-            onClick={()=>assetsPage(username, password)}
+            onClick={()=>LoginNextPage(username, password)}
             className="form-field"
             type="button"
             style={{ background: "#4caf50", color: "white", cursor: "pointer" }}

@@ -7,7 +7,7 @@
 // import TableRow from "@mui/material/TableRow";
 // import Paper from "@mui/material/Paper";
 // import { Button } from "@mui/material";
-import React, { useState, Fragment, useRef } from "react";
+import React, { useState, useEffect, Fragment, useRef } from "react";
 import { nanoid } from "nanoid";
 import "../styles/Table.css";
 import data from "../mockAssetData.json";
@@ -15,6 +15,7 @@ import ReadOnlyRow from "./common/ReadOnlyRow";
 import EditableRow from "./common/EditableRow";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
+import axios from "axios";
 
 function AssetsTable(props) {
   const [contacts, setContacts] = useState(data);
@@ -40,6 +41,43 @@ function AssetsTable(props) {
   const idProductRef = useRef();
 
   const [deleteId, setDeleteId] = useState();
+
+  const [DATA,setDATA]=useState([])
+
+  const accessToken =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkR1bW15dXNlciIsInJvbGUiOiJhZG1pbiIsImludGVyZmFjZSI6IldlYmFwcCIsImlhdCI6MTY1OTQzOTUwMywiZXhwIjoxNjU5NDg3NTAzfQ.vlWDJ9sVzSZz-dUmXM8BqsBjJfDXCoatAjaYsz_DH-g"
+  useEffect(() => {
+    getAssetsData(accessToken);
+  },[]);
+
+  const getAssetsData = (accessToken) => {
+    // const params = JSON.stringify({
+    //   username: username,
+
+    //   password: password,
+    // });
+
+    axios
+      .get("http://192.168.1.7:3000/admin/assets", {
+        headers: {
+          'access-token':`${accessToken}`
+        },
+      })
+      .then(function (response) {
+        console.log(response.data);
+        setDATA(response.data)
+        console.log("get assets");
+        // history.push("/users");
+        // navigate('/assets')
+      })
+
+      .catch(function (error) {
+        console.log(accessToken);
+        console.log(error, "Error Assets");
+        // alert("Oops! Wrong Password or Username!");
+      });
+  };
+
   const areUSureDelete = (choose) => {
     if (choose) {
       // handleDeleteClick(contact)
@@ -155,7 +193,7 @@ function AssetsTable(props) {
   const handleDelete = (id) => {
     //Update
     const index = contacts.findIndex((contact) => contact.assetId === id);
-    setDeleteId(id)
+    setDeleteId(id);
     console.log("Reached in handleDelete");
 
     handleDialog(
@@ -209,6 +247,7 @@ function AssetsTable(props) {
             onChange={handleAddFormChange}
           />
           <button
+            
             style={{
               background: "blue",
               color: "white",
@@ -221,7 +260,24 @@ function AssetsTable(props) {
           >
             Add
           </button>
+         
+      
         </form>
+        <button
+            onClick={()=>console.log(DATA[0])}
+            
+            style={{
+              background: "blue",
+              color: "white",
+              cursor: "pointer",
+              width: 100,
+              marginLeft: 100,
+              border: 0,
+            }}
+            type="submit"
+          >
+            Check
+          </button>
       </div>
       <div className="app-container">
         <form onSubmit={handleEditFormSubmit}>
@@ -236,17 +292,19 @@ function AssetsTable(props) {
               </tr>
             </thead>
             <tbody>
-              {contacts.map((contact) => (
+              {DATA.map((item) => (
                 <Fragment>
-                  {editContactId === contact.id ? (
+                  {1==2?
+                    {/* editContactId === contact.id ? (
                     <EditableRow
                       editFormData={editFormData}
                       handleEditFormChange={handleEditFormChange}
                       handleCancelClick={handleCancelClick}
                     />
-                  ) : (
+                  )  */}
+                  : (
                     <ReadOnlyRow
-                      contact={contact}
+                      item={item}
                       tableType={"Assets"}
                       handleEditClick={handleEditClick}
                       handleDeleteClick={handleDeleteClick}
