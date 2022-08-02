@@ -15,6 +15,14 @@ import ReadOnlyRow from "./common/ReadOnlyRow";
 import EditableRow from "./common/EditableRow";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
+import "bootstrap/dist/css/bootstrap.min.css";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+import Form from "react-bootstrap/Form";
+import Stack from "react-bootstrap/Stack";
+import Container from "react-bootstrap/Container";
+import Col from "react-bootstrap/Col";
+import InputGroup from "react-bootstrap/InputGroup";
 
 function UserTable(props) {
   const [contacts, setContacts] = useState(data);
@@ -40,13 +48,12 @@ function UserTable(props) {
   const idProductRef = useRef();
 
   const [deleteId, setDeleteId] = useState();
+  const [modalVisible, setModalVisible] = useState(false);
   const areUSureDelete = (choose) => {
     if (choose) {
       const newContacts = [...contacts];
 
-      const index = contacts.findIndex(
-        (contact) => contact.id === deleteId
-      );
+      const index = contacts.findIndex((contact) => contact.id === deleteId);
 
       newContacts.splice(index, 1);
 
@@ -84,8 +91,8 @@ function UserTable(props) {
   };
 
   const handleAddFormSubmit = (event) => {
-    event.preventDefault();
-
+    // event.preventDefault();
+    setModalVisible(false);
     const newContact = {
       id: nanoid(),
       fullName: addFormData.fullName,
@@ -149,7 +156,7 @@ function UserTable(props) {
   const handleDelete = (id) => {
     //Update
     const index = contacts.findIndex((contact) => contact.id === id);
-    setDeleteId(id)
+    setDeleteId(id);
     console.log("Reached in handleDelete");
 
     handleDialog(
@@ -171,89 +178,125 @@ function UserTable(props) {
   return (
     <>
       <Navbar />
-      <div className="insert-user-container">
-        {/* <h2>Add a User</h2> */}
-        <form onSubmit={handleAddFormSubmit}>
-          <input
-            type="text"
-            name="fullName"
-            required="required"
-            placeholder="Name"
-            onChange={handleAddFormChange}
-          />
-          <input
-            type="text"
-            name="address"
-            required="required"
-            placeholder="Address"
-            onChange={handleAddFormChange}
-          />
-          <input
-            type="text"
-            name="phoneNumber"
-            required="required"
-            placeholder="Phone Number"
-            onChange={handleAddFormChange}
-          />
-          <input
-            type="email"
-            name="email"
-            required="required"
-            placeholder="Email"
-            onChange={handleAddFormChange}
-          />
-          <button
-            style={{
-              background: "blue",
-              color: "white",
-              cursor: "pointer",
-              width: 100,
-              border: 0,
-            }}
-            type="submit"
-          >
-            Add
-          </button>
-        </form>
-      </div>
 
-      <div className="app-container">
-        <form onSubmit={handleEditFormSubmit}>
-          <table>
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Address</th>
-                <th>Phone Number</th>
-                <th>Email</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {contacts.map((contact) => (
-                <Fragment>
-                  {editContactId === contact.id ? (
-                    <EditableRow
-                      editFormData={editFormData}
-                      handleEditFormChange={handleEditFormChange}
-                      handleCancelClick={handleCancelClick}
-                    />
-                  ) : (
-                    <ReadOnlyRow
-                      contact={contact}
-                      tableType={"Users"}
-                      handleEditClick={handleEditClick}
-                      handleDeleteClick={handleDeleteClick}
-                      handleDelete={handleDelete}
-                      areUSureDelete={areUSureDelete}
-                      dialog={dialog}
-                    />
-                  )}
-                </Fragment>
-              ))}
-            </tbody>
-          </table>
-        </form>
+      <div style={{ backgroundColor: "#a8b8d0", marginTop: 10 }}>
+        <Button
+          onClick={() => setModalVisible(true)}
+          variant="primary"
+          size="lg"
+          style={{ marginLeft: "90%", marginTop: 10 }}
+        >
+          Add User
+        </Button>
+        <div className="app-container">
+          <form onSubmit={handleEditFormSubmit}>
+            <table>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Address</th>
+                  <th>Phone Number</th>
+                  <th>Email</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {contacts.map((contact) => (
+                  <Fragment>
+                    {editContactId === contact.id ? (
+                      <EditableRow
+                        editFormData={editFormData}
+                        handleEditFormChange={handleEditFormChange}
+                        handleCancelClick={handleCancelClick}
+                      />
+                    ) : (
+                      <ReadOnlyRow
+                        contact={contact}
+                        tableType={"Users"}
+                        handleEditClick={handleEditClick}
+                        handleDeleteClick={handleDeleteClick}
+                        handleDelete={handleDelete}
+                        areUSureDelete={areUSureDelete}
+                        dialog={dialog}
+                      />
+                    )}
+                  </Fragment>
+                ))}
+              </tbody>
+            </table>
+          </form>
+          <Modal
+            size="lg"
+            show={modalVisible}
+            // onHide={() => setLgShow(false)}
+            // aria-labelledby="example-modal-sizes-title-lg"
+          >
+            <Modal.Header>
+              <Modal.Title id="example-modal-sizes-title-lg">
+                Add User
+              </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <Form.Label size="lg">Name</Form.Label>
+              <Form.Control
+                type="text"
+                id="fulname"
+                name="fullName"
+                // aria-describedby="passwordHelpBlock"
+                size="lg"
+                style={{ marginBottom: 10 }}
+                onChange={handleAddFormChange}
+              />
+              <Form.Label size="lg">Address</Form.Label>
+              <Form.Control
+                type="text"
+                id="address"
+                name="address"
+                // aria-describedby="passwordHelpBlock"
+                size="lg"
+                style={{ marginBottom: 10 }}
+                onChange={handleAddFormChange}
+              />
+              <Form.Label size="lg">Phone</Form.Label>
+              <Form.Control
+                type="number"
+                id="phoneNumber"
+                name="phoneNumber"
+                aria-describedby="passwordHelpBlock"
+                size="lg"
+                style={{ marginBottom: 10 }}
+                onChange={handleAddFormChange}
+              />
+              <Form.Label size="lg">Email</Form.Label>
+              <Form.Control
+                type="email"
+                id="email"
+                name="email"
+                aria-describedby="passwordHelpBlock"
+                size="lg"
+                style={{ marginBottom: 10 }}
+                onChange={handleAddFormChange}
+              />
+            </Modal.Body>
+            <Modal.Footer>
+              <Button
+                size="lg"
+                variant="secondary"
+                onClick={() => setModalVisible(false)}
+              >
+                Close
+              </Button>
+              <Button
+                type="submit"
+                size="lg"
+                variant="primary"
+                onClick={() => handleAddFormSubmit()}
+              >
+                Save changes
+              </Button>
+            </Modal.Footer>
+          </Modal>
+        </div>
       </div>
       <Footer />
     </>
