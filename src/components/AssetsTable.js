@@ -44,8 +44,8 @@ function AssetsTable(props) {
 
   const [DATA,setDATA]=useState([])
 
-  const accessToken =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkR1bW15dXNlciIsInJvbGUiOiJhZG1pbiIsImludGVyZmFjZSI6IldlYmFwcCIsImlhdCI6MTY1OTQzOTUwMywiZXhwIjoxNjU5NDg3NTAzfQ.vlWDJ9sVzSZz-dUmXM8BqsBjJfDXCoatAjaYsz_DH-g"
+  // const accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZ…TUwfQ.n5LOBVdeoqUgML6uazFckJDHKPx1PoOmMp_omTS6b_E"
+  const accessToken=sessionStorage.getItem('token')
   useEffect(() => {
     getAssetsData(accessToken);
   },[]);
@@ -58,7 +58,7 @@ function AssetsTable(props) {
     // });
 
     axios
-      .get("http://192.168.1.7:3000/admin/assets", {
+      .get("http://192.168.56.1:3000/admin/assets", {
         headers: {
           'access-token':`${accessToken}`
         },

@@ -4,15 +4,8 @@ import HomeScreen from "./components/HomeScreen";
 import AssetsTable from "./components/AssetsTable";
 import UserTable from "./components/UserTable";
 import Logs from "./components/Logs";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  useParams,
-  useRouteMatch
-} from "react-router-dom";
 import Login from "./components/HomeScreen";
+import { Route, Routes } from "react-router";
 
 const fetchedProducts = [
   {
@@ -38,15 +31,18 @@ const fetchedStockEvents = [
 ];
 function App() {
   return (
-    <Router>
+    
+    <div>
+      <Routes>
 
       
-        <Route path="/" component={Login} exact />
-        <Route path="/assets" component={AssetsTable} />
-        <Route path="/users" component={UserTable} />
-        <Route path="/logs" component={Logs} />
+<Route path="/" element={<Login/>} exact />
+<Route path="/assets" element={<AssetsTable/>} />
+<Route path="/users" element={<UserTable/>} />
+<Route path="/logs" element={<Logs/>} />
 
-    </Router>
+</Routes>
+    </div>
 
  
   );

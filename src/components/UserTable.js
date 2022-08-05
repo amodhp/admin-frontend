@@ -7,7 +7,7 @@
 // import TableRow from "@mui/material/TableRow";
 // import Paper from "@mui/material/Paper";
 // import { Button } from "@mui/material";
-import React, { useState, Fragment, useRef } from "react";
+import React, { useState, Fragment, useRef ,useEffect} from "react";
 import { nanoid } from "nanoid";
 import "../styles/Table.css";
 import data from "../mockUserData.json";
@@ -19,12 +19,87 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
-import Stack from "react-bootstrap/Stack";
-import Container from "react-bootstrap/Container";
-import Col from "react-bootstrap/Col";
-import InputGroup from "react-bootstrap/InputGroup";
+import axios from 'axios'
+
 
 function UserTable(props) {
+    
+
+  const accessToken=sessionStorage.getItem('token')
+  useEffect(() => {
+    getUserData(accessToken,"admin");
+  },[]);
+
+    
+  const postUserData = (accessToken,admin) => {
+    // const params = JSON.stringify({
+    //   username: username,
+
+    //   password: password,
+    // });
+   
+
+    axios
+      .post("http://192.168.56.1:3000/admin/add_user",{
+        headers: {
+          'access-token':`${accessToken}`
+        },
+      })
+      .then(function (response) {
+        console.log(response.data);
+        const data=response.data.users
+        // setTimeout(setDATA(data),3999)
+        // setDATA(data)
+        console.log('1',data)
+        setDATA(data)
+        console.log('2',DATA);
+        console.log("get users");
+        // history.push("/users");
+        // navigate('/assets')
+      })
+
+      .catch(function (error) {
+        console.log(accessToken);
+        console.log(error, "Error Users");
+        // alert("Oops! Wrong Password or Username!");
+      });
+  };
+
+  const getUserData = (accessToken,admin) => {
+    // const params = JSON.stringify({
+    //   username: username,
+
+    //   password: password,
+    // });
+   
+
+    axios
+      .get("http://192.168.56.1:3000/admin",{
+        headers: {
+          'access-token':`${accessToken}`
+        },
+      })
+      .then(function (response) {
+        console.log(response.data);
+        const data=response.data.users
+        // setTimeout(setDATA(data),3999)
+        // setDATA(data)
+        console.log('1',data)
+        setDATA(data)
+        console.log('2',DATA);
+        console.log("get users");
+        // history.push("/users");
+        // navigate('/assets')
+      })
+
+      .catch(function (error) {
+        console.log(accessToken);
+        console.log(error, "Error Users");
+        // alert("Oops! Wrong Password or Username!");
+      });
+  };
+
+  const[DATA,setDATA]=useState([])
   const [contacts, setContacts] = useState(data);
   const [addFormData, setAddFormData] = useState({
     fullName: "",
@@ -93,16 +168,29 @@ function UserTable(props) {
   const handleAddFormSubmit = (event) => {
     // event.preventDefault();
     setModalVisible(false);
-    const newContact = {
+    const newData = {
       id: nanoid(),
-      fullName: addFormData.fullName,
-      address: addFormData.address,
-      phoneNumber: addFormData.phoneNumber,
-      email: addFormData.email,
+      user_id: editContactId,      
+      username: data.fullName,
+      email_id: data.email,
+      mobile_phone: data.phoneNumber,
+      // "user_id": 101,
+      // "username": "stackholder 2",
+      "password": "1234",
+      "first_name": "khushi",
+      "middle_name": "",
+      "last_name": "",
+      // "mobile_phone": 4653187894,
+      // "email_id": "doe@gmail.com",
+      "company_name": "somaiya",
+      "role": "requestee",
+      "note": "",
+      "interfaces": "",
+      "asset_category": []
     };
 
-    const newContacts = [...contacts, newContact];
-    setContacts(newContacts);
+    // const newContacts = [...contacts, newContact];
+    // setContacts(newContacts);
   };
 
   const handleEditFormSubmit = (event) => {
@@ -114,6 +202,8 @@ function UserTable(props) {
       address: editFormData.address,
       phoneNumber: editFormData.phoneNumber,
       email: editFormData.email,
+      
+      
     };
 
     const newContacts = [...contacts];
@@ -124,17 +214,31 @@ function UserTable(props) {
 
     setContacts(newContacts);
     setEditContactId(null);
+    // postUserData(accessToken)
   };
 
-  const handleEditClick = (event, contact) => {
+  const handleEditClick = (event, data) => {
     event.preventDefault();
-    setEditContactId(contact.id);
+    setEditContactId(data.id);
 
     const formValues = {
-      fullName: contact.fullName,
-      address: contact.address,
-      phoneNumber: contact.phoneNumber,
-      email: contact.email,
+      username: data.fullName,
+      user_id: data.id,
+      email_id: data.email,
+      mobile_phone: data.phoneNumber,
+      // "user_id": 101,
+      // "username": "stackholder 2",
+      "password": "1234",
+      "first_name": "khsuhi",
+      "middle_name": "",
+      "last_name": "",
+      // "mobile_phone": 4653187894,
+      // "email_id": "doe@gmail.com",
+      "company_name": "somaiya",
+      "role": "requestee",
+      "note": "",
+      "interfaces": "",
+      "asset_category": []
     };
 
     setEditFormData(formValues);
@@ -201,9 +305,9 @@ function UserTable(props) {
                 </tr>
               </thead>
               <tbody>
-                {contacts.map((contact) => (
+                {DATA.map((item) => (
                   <Fragment>
-                    {editContactId === contact.id ? (
+                    {editContactId === item.id ? (
                       <EditableRow
                         editFormData={editFormData}
                         handleEditFormChange={handleEditFormChange}
@@ -211,7 +315,7 @@ function UserTable(props) {
                       />
                     ) : (
                       <ReadOnlyRow
-                        contact={contact}
+                        item={item}
                         tableType={"Users"}
                         handleEditClick={handleEditClick}
                         handleDeleteClick={handleDeleteClick}

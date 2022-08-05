@@ -4,13 +4,6 @@ import "../styles/LoginUi.css";
 import logo from "./../logo.png";
 
 import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  Redirect,
-  useHistory,
-  useLocation,
   useNavigate
 
 } from "react-router-dom";
@@ -18,7 +11,7 @@ import { fontSize } from "@mui/system";
 import axios from 'axios'
 
 function Login() {
-  const history = useHistory();
+  const navigate = useNavigate();
   // const navigate=useNavigate();
 
 
@@ -34,16 +27,18 @@ function Login() {
       password: password,
     });
     axios
-      .post("http://192.168.1.7:3000/login", params, {
+      .post("http://192.168.56.1:3000/login", params, {
         headers: {
           "content-type": "application/json",
         },
       })
       .then(function (response) {
-        console.log(response.data);
+        sessionStorage.setItem('token',response.data.access_token)
+        console.log(sessionStorage.getItem('token'));
+    
         console.log('Next Page ')
         // history.push("/users");
-        // navigate('/assets')
+         navigate('/assets')
 
      
       })
@@ -120,3 +115,4 @@ function Login() {
 }
 
 export default Login;
+

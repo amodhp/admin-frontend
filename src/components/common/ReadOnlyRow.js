@@ -19,10 +19,10 @@ const ReadOnlyRow = ({
     if (check == "Users") {
       return (
         <tr>
-          <td>{item.fullName}</td>
-          <td>{item.address}</td>
-          <td>{item.phoneNumber}</td>
-          <td>{item.email}</td>
+          <td>{item.username}</td>
+          <td>{item.createdAt}</td>
+          <td>{item.mobile_phone}</td>
+          <td>{item.email_id}</td>
           <td>
             <button
               check="button"
