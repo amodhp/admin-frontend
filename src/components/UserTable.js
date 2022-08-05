@@ -152,6 +152,11 @@ function UserTable(props) {
 
     setAddFormData(newFormData);
   };
+   //variables for user add field
+  const [name,setName]=useState('')
+  const [role,setRole]=useState('')
+
+
 
   const handleEditFormChange = (event) => {
     event.preventDefault();
@@ -165,29 +170,72 @@ function UserTable(props) {
     setEditFormData(newFormData);
   };
 
-  const handleAddFormSubmit = (event) => {
+  const handleAddFormSubmit = (accessToken) => {
     // event.preventDefault();
     setModalVisible(false);
-    const newData = {
-      id: nanoid(),
-      user_id: editContactId,      
-      username: data.fullName,
-      email_id: data.email,
-      mobile_phone: data.phoneNumber,
-      // "user_id": 101,
-      // "username": "stackholder 2",
-      "password": "1234",
-      "first_name": "khushi",
-      "middle_name": "",
-      "last_name": "",
-      // "mobile_phone": 4653187894,
-      // "email_id": "doe@gmail.com",
-      "company_name": "somaiya",
-      "role": "requestee",
-      "note": "",
-      "interfaces": "",
-      "asset_category": []
-    };
+    console.log("USer Data",name,role,accessToken)
+
+
+    //calling axios to post user data
+
+    axios
+    .post("http://192.168.56.1:3000/admin/add_user",{
+      user_id:nanoid(),
+      username:'username',
+      password:'1234',
+      first_name:name,
+      middle_name:'',
+      last_name:'',
+      mobile_phone:'12345566',
+      email_id:'@email',
+      company_name:'selec',
+      role:role,
+      note:'',
+      interfaces:'',
+      asset_category:[]
+    }, {
+      headers: {
+        'access-token':`${accessToken}`
+      },
+    })
+    .then(function (response) {
+      console.log(response.data);
+      setDATA(response.data)
+      console.log("get assets");
+      // history.push("/users");
+      // navigate('/assets')
+    })
+
+    .catch(function (error) {
+      console.log(accessToken);
+      console.log(error, "Error Assets");
+      // alert("Oops! Wrong Password or Username!");
+    });
+    
+
+
+
+
+    // const newData = {
+    //   id: nanoid(),
+    //   user_id: editContactId,      
+    //   username: data.fullName,
+    //   email_id: data.email,
+    //   mobile_phone: data.phoneNumber,
+    //   // "user_id": 101,
+    //   // "username": "stackholder 2",
+    //   "password": "1234",
+    //   "first_name": "khushi",
+    //   "middle_name": "",
+    //   "last_name": "",
+    //   // "mobile_phone": 4653187894,
+    //   // "email_id": "doe@gmail.com",
+    //   "company_name": "somaiya",
+    //   "role": "requestee",
+    //   "note": "",
+    //   "interfaces": "",
+    //   "asset_category": []
+    // };
 
     // const newContacts = [...contacts, newContact];
     // setContacts(newContacts);
@@ -349,9 +397,9 @@ function UserTable(props) {
                 // aria-describedby="passwordHelpBlock"
                 size="lg"
                 style={{ marginBottom: 10 }}
-                onChange={handleAddFormChange}
+                onChange={e=>setName(e.target.value)}
               />
-              <Form.Label size="lg">Address</Form.Label>
+              <Form.Label size="lg">Role</Form.Label>
               <Form.Control
                 type="text"
                 id="address"
@@ -359,9 +407,9 @@ function UserTable(props) {
                 // aria-describedby="passwordHelpBlock"
                 size="lg"
                 style={{ marginBottom: 10 }}
-                onChange={handleAddFormChange}
+                onChange={e=>setRole(e.target.value)}
               />
-              <Form.Label size="lg">Phone</Form.Label>
+              {/* <Form.Label size="lg">Phone</Form.Label>
               <Form.Control
                 type="number"
                 id="phoneNumber"
@@ -380,7 +428,7 @@ function UserTable(props) {
                 size="lg"
                 style={{ marginBottom: 10 }}
                 onChange={handleAddFormChange}
-              />
+              /> */}
             </Modal.Body>
             <Modal.Footer>
               <Button
@@ -394,7 +442,7 @@ function UserTable(props) {
                 type="submit"
                 size="lg"
                 variant="primary"
-                onClick={() => handleAddFormSubmit()}
+                onClick={() => handleAddFormSubmit(accessToken)}
               >
                 Save changes
               </Button>
