@@ -17,19 +17,19 @@ export default function Navbar() {
           }
         >
           <ul>
-            <li class="nav-item active">
-              <a class="nav-link" href="/users">
+            <li className="nav-item active">
+              <a className="nav-link" href="/users">
                 Users
               </a>
-              {/* <NavLink class="nav-link" to="/users"></NavLink> */}
+              {/* <NavLink className="nav-link" to="/users"></NavLink> */}
             </li>
-            <li class="nav-item active">
-              <a class="nav-link" href="/assets">
+            <li className="nav-item active">
+              <a className="nav-link" href="/assets">
                 Assets
               </a>
             </li>
-            <li class="nav-item active">
-              <a class="nav-link" href="/logs">
+            <li className="nav-item active">
+              <a className="nav-link" href="/logs">
                 Logs
               </a>
             </li>

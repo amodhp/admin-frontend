@@ -20,7 +20,7 @@ const ReadOnlyRow = ({
       return (
         <tr>
           <td>{item.username}</td>
-          <td>{item.createdAt}</td>
+          <td>{item.role === undefined ?"Not Defined":item.role.name}</td>
           <td>{item.mobile_phone}</td>
           <td>{item.email_id}</td>
           <td>
@@ -37,7 +37,7 @@ const ReadOnlyRow = ({
                 border: 0,
                 borderRadius: 5,
               }}
-              onClick={(event) => handleEditClick(event, item)}
+              onClick={(event) => console.log("Updating")}
             >
               <p class="small-text">Update</p>
             </button>
@@ -55,7 +55,7 @@ const ReadOnlyRow = ({
                 borderRadius: 5,
               }}
               // onClick={() => handleDeleteClick(item.id)}
-              onClick={() =>  handleDelete(item.id)}
+              onClick={() =>  handleDelete(item._id)}
             >
               <p class="small-text">Delete</p>
             </button>
@@ -132,23 +132,7 @@ const ReadOnlyRow = ({
   };
 
   return checkType(tableType);
-  // <tr>
-  //   <td>{item.fullName}</td>
-  //   <td>{contact.address}</td>
-  //   <td>{contact.phoneNumber}</td>
-  //   <td>{contact.email}</td>
-  //   <td>
-  //     <button
-  //       check="button"
-  //       onClick={(event) => handleEditClick(event, contact)}
-  //     >
-  //       Edit
-  //     </button>
-  //     <button type="button" onClick={() => handleDeleteClick(contact.id)}>
-  //       Delete
-  //     </button>
-  //   </td>
-  // </tr>
+
 };
 
 export default ReadOnlyRow;
