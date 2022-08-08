@@ -7,7 +7,7 @@
 // import TableRow from "@mui/material/TableRow";
 // import Paper from "@mui/material/Paper";
 // import { Button } from "@mui/material";
-import React, { useState, Fragment, useRef ,useEffect} from "react";
+import React, { useState, Fragment, useRef, useEffect } from "react";
 import { nanoid } from "nanoid";
 import "../styles/Table.css";
 import data from "../mockUserData.json";
@@ -19,43 +19,36 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
-import axios from 'axios'
-
+import axios from "axios";
 
 function UserTable(props) {
-    
-
-  const accessToken=sessionStorage.getItem('token')
+  const accessToken = sessionStorage.getItem("token");
   useEffect(() => {
-    getUserData(accessToken,"admin");
-  },[]);
+    getUserData(accessToken, "admin");
+  }, []);
 
-    
-  const postUserData = (accessToken,admin) => {
+  const getUserData = (accessToken, admin) => {
     // const params = JSON.stringify({
     //   username: username,
 
     //   password: password,
     // });
-   
 
     axios
-      .post("http://192.168.56.1:3000/admin/add_user",{
+      .get("http://192.168.1.6:3000/admin", {
         headers: {
-          'access-token':`${accessToken}`
+          "access-token": `${accessToken}`,
         },
       })
       .then(function (response) {
-        console.log(response.data);
-        const data=response.data.users
+        // console.log(response.data);
+        const data = response.data.users;
         // setTimeout(setDATA(data),3999)
-        // setDATA(data)
-        console.log('1',data)
-        setDATA(data)
-        console.log('2',DATA);
-        console.log("get users");
-        // history.push("/users");
-        // navigate('/assets')
+        setDATA(data);
+        // console.log("1", data);
+        // setDATA(data);
+        // console.log("2", DATA);
+        // console.log("get users");
       })
 
       .catch(function (error) {
@@ -65,41 +58,7 @@ function UserTable(props) {
       });
   };
 
-  const getUserData = (accessToken,admin) => {
-    // const params = JSON.stringify({
-    //   username: username,
-
-    //   password: password,
-    // });
-   
-
-    axios
-      .get("http://192.168.56.1:3000/admin",{
-        headers: {
-          'access-token':`${accessToken}`
-        },
-      })
-      .then(function (response) {
-        console.log(response.data);
-        const data=response.data.users
-        // setTimeout(setDATA(data),3999)
-        // setDATA(data)
-        console.log('1',data)
-        setDATA(data)
-        console.log('2',DATA);
-        console.log("get users");
-        // history.push("/users");
-        // navigate('/assets')
-      })
-
-      .catch(function (error) {
-        console.log(accessToken);
-        console.log(error, "Error Users");
-        // alert("Oops! Wrong Password or Username!");
-      });
-  };
-
-  const[DATA,setDATA]=useState([])
+  const [DATA, setDATA] = useState([]);
   const [contacts, setContacts] = useState(data);
   const [addFormData, setAddFormData] = useState({
     fullName: "",
@@ -152,11 +111,11 @@ function UserTable(props) {
 
     setAddFormData(newFormData);
   };
-   //variables for user add field
-  const [name,setName]=useState('')
-  const [role,setRole]=useState('')
-
-
+  //variables for user add field
+  const [name, setName] = useState("");
+  const [role, setRole] = useState("");
+  const [phone, setPhone] = useState(0);
+  const [email, setEmail] = useState("");
 
   const handleEditFormChange = (event) => {
     event.preventDefault();
@@ -173,74 +132,83 @@ function UserTable(props) {
   const handleAddFormSubmit = (accessToken) => {
     // event.preventDefault();
     setModalVisible(false);
-    console.log("USer Data",name,role,accessToken)
-
+    console.log("USer Data", name, role, accessToken);
 
     //calling axios to post user data
 
-    axios
-    .post("http://192.168.56.1:3000/admin/add_user",{
-      user_id:nanoid(), 
-      username:'username',
-      password:'1234',
-      first_name:name,
-      middle_name:'',
-      last_name:'',
-      mobile_phone:'12345566',
-      email_id:'@email',
-      company_name:'selec',
-      role:role,
-      note:'',
-      interfaces:'',
-      asset_category:[]
-    }, {
+    // const params = JSON.stringify({
+    //   user_id: 11,
+    //   username: "amoood_",
+    //   password: "AModh",
+    //   first_name: name,
+    //   middle_name: "",
+    //   last_name: "",
+    //   mobile_phone: 9769388614,
+    //   email_id: "amodh1.pandey64@gmail.com",
+    //   company_name: "selec",
+    //   role: role,
+    //   note: "",
+    //   interfaces: "",
+    //   asset_category: [],
+    // });
+    axios({
+      method: "post",
+      url: "http://192.168.1.6:3000/admin/add_user",
+      data: {
+        user_id: Math.floor(Math.random() * 1000000),
+        username: name,
+        password: "AModh",
+        first_name: name,
+        middle_name: "",
+        last_name: "",
+        mobile_phone: phone,
+        email_id: email,
+        company_name: "selec",
+        role: role,
+        note: "",
+        interfaces: "",
+        asset_category: [],
+      },
       headers: {
-        'access-token':`${accessToken}`
+        "access-token": `${accessToken}`,
       },
     })
-    .then(function (response) {
-      console.log(response.data);
-      setDATA(response.data)
-      console.log("get assets");
-      // history.push("/users");
-      // navigate('/assets')
-    })
+      .then((res) => {
+        console.log(res);
+        getUserData(accessToken)
+      })
+      .catch((error) => {
+        console.log(error);
+      });
 
-    .catch(function (error) {
-      console.log(accessToken);
-      console.log(error, "Error Assets");
-      // alert("Oops! Wrong Password or Username!");
-    });
-    
+    //   axios
+    //     .post(
+    //       "http://192.168.1.7:3000/admin/add_user",
+    //       params,
+    //       {
+    // headers: {
+    //   "access-token": `${accessToken}`,
+    // },
+    //       }
+    //     )
+    //     .then(function (response) {
+    //       console.log(response.data);
+    //       // setDATA(response.data)
+    //       console.log("adding user");
+    //       // history.push("/users");
+    //       // navigate('/assets')
+    //     })
 
+    //     .catch(function (error) {
+    //       console.log(accessToken);
+    //       console.log(error, "Error add user");
+    //       // alert("Oops! Wrong Password or Username!");
+    //     });
 
-
-
-    // const newData = {
-    //   id: nanoid(),
-    //   user_id: editContactId,      
-    //   username: data.fullName,
-    //   email_id: data.email,
-    //   mobile_phone: data.phoneNumber,
-    //   // "user_id": 101,
-    //   // "username": "stackholder 2",
-    //   "password": "1234",
-    //   "first_name": "khushi",
-    //   "middle_name": "",
-    //   "last_name": "",
-    //   // "mobile_phone": 4653187894,
-    //   // "email_id": "doe@gmail.com",
-    //   "company_name": "somaiya",
-    //   "role": "requestee",
-    //   "note": "",
-    //   "interfaces": "",
-    //   "asset_category": []
+    //   // const newContacts = [...contacts, newContact];
+    //   // setContacts(newContacts);
     // };
-
-    // const newContacts = [...contacts, newContact];
-    // setContacts(newContacts);
   };
-
   const handleEditFormSubmit = (event) => {
     event.preventDefault();
 
@@ -250,8 +218,6 @@ function UserTable(props) {
       address: editFormData.address,
       phoneNumber: editFormData.phoneNumber,
       email: editFormData.email,
-      
-      
     };
 
     const newContacts = [...contacts];
@@ -276,17 +242,17 @@ function UserTable(props) {
       mobile_phone: data.phoneNumber,
       // "user_id": 101,
       // "username": "stackholder 2",
-      "password": "1234",
-      "first_name": "khsuhi",
-      "middle_name": "",
-      "last_name": "",
+      password: "1234",
+      first_name: "khsuhi",
+      middle_name: "",
+      last_name: "",
       // "mobile_phone": 4653187894,
       // "email_id": "doe@gmail.com",
-      "company_name": "somaiya",
-      "role": "requestee",
-      "note": "",
-      "interfaces": "",
-      "asset_category": []
+      company_name: "somaiya",
+      role: "requestee",
+      note: "",
+      interfaces: "",
+      asset_category: [],
     };
 
     setEditFormData(formValues);
@@ -307,16 +273,32 @@ function UserTable(props) {
   };
   const handleDelete = (id) => {
     //Update
-    const index = contacts.findIndex((contact) => contact.id === id);
-    setDeleteId(id);
+    console.log(id,"inside handlete func")
+    // const index = contacts.findIndex((contact) => contact.id === id);
+    // setDeleteId(id);
     console.log("Reached in handleDelete");
-
+    const params = JSON.stringify({
+      id:id
+    });
+    // axios.delete(`http://192.168.1.6:3000/admin/delete_user/:id`,params, {
+    //   headers: {
+    //     "access-token": `${accessToken}`,
+    //   },
+  
+    // })
+    
     handleDialog(
       "Are you sure you want to delete?",
       true,
-      contacts[index].fullName
+      console.log("True Pressed"),
+      // axios.delete(`http://192.168.1.6:3000/admin/delete_user/:id`,params, {
+      //   headers: {
+      //     "access-token": `${accessToken}`,
+      //   },
+    
+      // })
     );
-    idProductRef.current = id;
+ 
   };
   const handleDialog = (message, isLoading, nameProduct) => {
     console.log("Reached in handleDialog");
@@ -346,7 +328,7 @@ function UserTable(props) {
               <thead>
                 <tr>
                   <th>Name</th>
-                  <th>Address</th>
+                  <th>Role</th>
                   <th>Phone Number</th>
                   <th>Email</th>
                   <th>Actions</th>
@@ -397,7 +379,7 @@ function UserTable(props) {
                 // aria-describedby="passwordHelpBlock"
                 size="lg"
                 style={{ marginBottom: 10 }}
-                onChange={e=>setName(e.target.value)}
+                onChange={(e) => setName(e.target.value)}
               />
               <Form.Label size="lg">Role</Form.Label>
               <Form.Control
@@ -407,9 +389,9 @@ function UserTable(props) {
                 // aria-describedby="passwordHelpBlock"
                 size="lg"
                 style={{ marginBottom: 10 }}
-                onChange={e=>setRole(e.target.value)}
+                onChange={(e) => setRole(e.target.value)}
               />
-              {/* <Form.Label size="lg">Phone</Form.Label>
+              <Form.Label size="lg">Phone</Form.Label>
               <Form.Control
                 type="number"
                 id="phoneNumber"
@@ -417,7 +399,7 @@ function UserTable(props) {
                 aria-describedby="passwordHelpBlock"
                 size="lg"
                 style={{ marginBottom: 10 }}
-                onChange={handleAddFormChange}
+                onChange={(e) => setPhone(e.target.value)}
               />
               <Form.Label size="lg">Email</Form.Label>
               <Form.Control
@@ -427,8 +409,8 @@ function UserTable(props) {
                 aria-describedby="passwordHelpBlock"
                 size="lg"
                 style={{ marginBottom: 10 }}
-                onChange={handleAddFormChange}
-              /> */}
+                onChange={(e) => setEmail(e.target.value)}
+              />
             </Modal.Body>
             <Modal.Footer>
               <Button

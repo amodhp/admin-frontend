@@ -17,6 +17,7 @@ export default function Navbar() {
           }
         >
           <ul>
+<<<<<<< HEAD
           <li class="nav-item active">
               <a class="nav-link" href="/Dashboard">
                 Dashboard
@@ -25,17 +26,21 @@ export default function Navbar() {
             </li>
             <li class="nav-item active">
               <a class="nav-link" href="/users">
+=======
+            <li className="nav-item active">
+              <a className="nav-link" href="/users">
+>>>>>>> ed0669d14cc32e43794b8466973301e16d700708
                 Users
               </a>
-              {/* <NavLink class="nav-link" to="/users"></NavLink> */}
+              {/* <NavLink className="nav-link" to="/users"></NavLink> */}
             </li>
-            <li class="nav-item active">
-              <a class="nav-link" href="/assets">
+            <li className="nav-item active">
+              <a className="nav-link" href="/assets">
                 Assets
               </a>
             </li>
-            <li class="nav-item active">
-              <a class="nav-link" href="/logs">
+            <li className="nav-item active">
+              <a className="nav-link" href="/logs">
                 Logs
               </a>
             </li>

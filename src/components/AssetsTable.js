@@ -16,6 +16,10 @@ import EditableRow from "./common/EditableRow";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import axios from "axios";
+import Modal from "react-bootstrap/Modal";
+import "bootstrap/dist/css/bootstrap.min.css";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 
 function AssetsTable(props) {
   const [contacts, setContacts] = useState(data);
@@ -42,13 +46,13 @@ function AssetsTable(props) {
 
   const [deleteId, setDeleteId] = useState();
 
-  const [DATA,setDATA]=useState([])
+  const [DATA, setDATA] = useState([]);
 
   // const accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZ…TUwfQ.n5LOBVdeoqUgML6uazFckJDHKPx1PoOmMp_omTS6b_E"
-  const accessToken=sessionStorage.getItem('token')
+  const accessToken = sessionStorage.getItem("token");
   useEffect(() => {
     getAssetsData(accessToken);
-  },[]);
+  }, []);
 
   const getAssetsData = (accessToken) => {
     // const params = JSON.stringify({
@@ -58,14 +62,14 @@ function AssetsTable(props) {
     // });
 
     axios
-      .get("http://192.168.56.1:3000/admin/assets", {
+      .get("http://192.168.1.6:3000/admin/assets", {
         headers: {
-          'access-token':`${accessToken}`
+          "access-token": `${accessToken}`,
         },
       })
       .then(function (response) {
         console.log(response.data);
-        setDATA(response.data)
+        setDATA(response.data);
         console.log("get assets");
         // history.push("/users");
         // navigate('/assets')
@@ -212,72 +216,32 @@ function AssetsTable(props) {
       nameProduct,
     });
   };
+
+  const [modalVisible, setModalVisible] = useState(false);
+  const [name, setName] = useState("");
+  const [role, setRole] = useState("");
+  const [phone, setPhone] = useState(0);
+  const [email, setEmail] = useState("");
   return (
     <>
       <Navbar />
-      <div className="insert-user-container">
-        {/* <h2>Add an Asset</h2> */}
-        <form onSubmit={handleAddFormSubmit}>
-          <input
-            type="text"
-            name="assetName"
-            required="required"
-            placeholder="Asset"
-            onChange={handleAddFormChange}
-          />
-          <input
-            type="text"
-            name="category"
-            required="required"
-            placeholder="Category"
-            onChange={handleAddFormChange}
-          />
-          <input
-            type="text"
-            name="categoryid"
-            required="required"
-            placeholder="Category ID"
-            onChange={handleAddFormChange}
-          />
-          <input
-            type="text"
-            name="assetid"
-            required="required"
-            placeholder="Asset ID"
-            onChange={handleAddFormChange}
-          />
-          <button
-            
-            style={{
-              background: "blue",
-              color: "white",
-              cursor: "pointer",
-              width: 100,
-              marginLeft: 100,
-              border: 0,
-            }}
-            type="submit"
-          >
-            Add
-          </button>
-         
-      
-        </form>
+      <div>
         <button
-            onClick={()=>console.log(DATA[0])}
-            
-            style={{
-              background: "blue",
-              color: "white",
-              cursor: "pointer",
-              width: 100,
-              marginLeft: 100,
-              border: 0,
-            }}
-            type="submit"
-          >
-            Check
-          </button>
+          onClick={() => setModalVisible(true)}
+          style={{
+            background: "blue",
+            color: "white",
+            cursor: "pointer",
+            // width: 100,
+            marginLeft: "85%",
+            border: 0,
+            padding: 15,
+            borderRadius: 10,
+          }}
+          type="submit"
+        >
+          Add Asset
+        </button>
       </div>
       <div className="app-container">
         <form onSubmit={handleEditFormSubmit}>
@@ -286,23 +250,25 @@ function AssetsTable(props) {
               <tr>
                 <th>Asset Name</th>
                 <th>Category</th>
-                <th>Category Id</th>
-                <th>Asset Id</th>
+                <th>Location</th>
+                <th>Asset</th>
                 <th>Actions</th>
               </tr>
             </thead>
             <tbody>
               {DATA.map((item) => (
                 <Fragment>
-                  {1==2?
-                    {/* editContactId === contact.id ? (
+                  {1 == 2 ? (
+                    {
+                      /* editContactId === contact.id ? (
                     <EditableRow
                       editFormData={editFormData}
                       handleEditFormChange={handleEditFormChange}
                       handleCancelClick={handleCancelClick}
                     />
-                  )  */}
-                  : (
+                  )  */
+                    }
+                  ) : (
                     <ReadOnlyRow
                       item={item}
                       tableType={"Assets"}
@@ -320,6 +286,77 @@ function AssetsTable(props) {
             </tbody>
           </table>
         </form>
+        <Modal
+          size="lg"
+          show={modalVisible}
+          // onHide={() => setLgShow(false)}
+          // aria-labelledby="example-modal-sizes-title-lg"
+        >
+          <Modal.Header>
+            <Modal.Title id="example-modal-sizes-title-lg">
+              Add User
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form.Label size="lg">Name</Form.Label>
+            <Form.Control
+              type="text"
+              id="fulname"
+              name="fullName"
+              // aria-describedby="passwordHelpBlock"
+              size="lg"
+              style={{ marginBottom: 10 }}
+              onChange={(e) => setName(e.target.value)}
+            />
+            <Form.Label size="lg">Role</Form.Label>
+            <Form.Control
+              type="text"
+              id="address"
+              name="address"
+              // aria-describedby="passwordHelpBlock"
+              size="lg"
+              style={{ marginBottom: 10 }}
+              onChange={(e) => setRole(e.target.value)}
+            />
+            <Form.Label size="lg">Phone</Form.Label>
+            <Form.Control
+              type="number"
+              id="phoneNumber"
+              name="phoneNumber"
+              aria-describedby="passwordHelpBlock"
+              size="lg"
+              style={{ marginBottom: 10 }}
+              onChange={(e) => setPhone(e.target.value)}
+            />
+            <Form.Label size="lg">Email</Form.Label>
+            <Form.Control
+              type="email"
+              id="email"
+              name="email"
+              aria-describedby="passwordHelpBlock"
+              size="lg"
+              style={{ marginBottom: 10 }}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </Modal.Body>
+          <Modal.Footer>
+            <Button
+              size="lg"
+              variant="secondary"
+              onClick={() => setModalVisible(false)}
+            >
+              Close
+            </Button>
+            <Button
+              type="submit"
+              size="lg"
+              variant="primary"
+              onClick={() => handleAddFormSubmit(accessToken)}
+            >
+              Save changes
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </div>
       <Footer />
     </>
