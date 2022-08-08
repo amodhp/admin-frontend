@@ -62,7 +62,7 @@ function AssetsTable(props) {
     // });
 
     axios
-      .get("http://192.168.1.6:3000/admin/assets", {
+      .get("http://192.168.56.1:3000/admin/assets", {
         headers: {
           "access-token": `${accessToken}`,
         },
