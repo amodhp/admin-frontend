@@ -225,23 +225,20 @@ function AssetsTable(props) {
   return (
     <>
       <Navbar />
-      <div>
-        <button
+      <div style={{ marginTop: 5 }}>
+        <Button
           onClick={() => setModalVisible(true)}
+          variant="primary"
+          size="lg"
           style={{
-            background: "blue",
-            color: "white",
             cursor: "pointer",
-            // width: 100,
-            marginLeft: "85%",
-            border: 0,
-            padding: 15,
-            borderRadius: 10,
+            marginTop:10,
+            marginLeft: "90%",
           }}
           type="submit"
         >
           Add Asset
-        </button>
+        </Button>
       </div>
       <div className="app-container">
         <form onSubmit={handleEditFormSubmit}>

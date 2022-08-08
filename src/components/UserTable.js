@@ -1,12 +1,4 @@
-// import * as React from "react";
-// import Table from "@mui/material/Table";
-// import TableBody from "@mui/material/TableBody";
-// import TableCell from "@mui/material/TableCell";
-// import TableContainer from "@mui/material/TableContainer";
-// import TableHead from "@mui/material/TableHead";
-// import TableRow from "@mui/material/TableRow";
-// import Paper from "@mui/material/Paper";
-// import { Button } from "@mui/material";
+
 import React, { useState, Fragment, useRef, useEffect } from "react";
 import { nanoid } from "nanoid";
 import "../styles/Table.css";
@@ -322,7 +314,7 @@ function UserTable(props) {
     <>
       <Navbar />
 
-      <div style={{ backgroundColor: "#a8b8d0", marginTop: 10 }}>
+      <div style={{ marginTop: 5 }}>
         <Button
           onClick={() => setModalVisible(true)}
           variant="primary"
