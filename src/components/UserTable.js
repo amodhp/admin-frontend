@@ -180,7 +180,7 @@ function UserTable(props) {
 
     axios
     .post("http://192.168.56.1:3000/admin/add_user",{
-      user_id:nanoid(),
+      user_id:nanoid(), 
       username:'username',
       password:'1234',
       first_name:name,

@@ -17,6 +17,12 @@ export default function Navbar() {
           }
         >
           <ul>
+          <li class="nav-item active">
+              <a class="nav-link" href="/Dashboard">
+                Dashboard
+              </a>
+              {/* <NavLink class="nav-link" to="/users"></NavLink> */}
+            </li>
             <li class="nav-item active">
               <a class="nav-link" href="/users">
                 Users
