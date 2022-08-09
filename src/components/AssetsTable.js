@@ -63,7 +63,9 @@ function AssetsTable(props) {
     // });
 
     axios
+
       .get(`http://${api}/admin/assets`, {
+
         headers: {
           "access-token": `${accessToken}`,
         },
@@ -130,7 +132,7 @@ function AssetsTable(props) {
 
   const handleAddFormSubmit = (accessToken) => {
     setModalVisible(false);
-    console.log("AssetData Data", name, location,category,componentList);
+    console.log("AssetData Data",componentList);
 
     axios({
       method: "post",
@@ -138,7 +140,8 @@ function AssetsTable(props) {
       data: {
         asset_name:name,
         location:location,
-        Asset_component_list:componentList
+        asset_category:category,
+        asset_component_list:componentList
 
       },
       headers: {
@@ -238,23 +241,20 @@ function AssetsTable(props) {
   return (
     <>
       <Navbar />
-      <div>
-        <button
+      <div style={{ marginTop: 5 }}>
+        <Button
           onClick={() => setModalVisible(true)}
+          variant="primary"
+          size="lg"
           style={{
-            background: "blue",
-            color: "white",
             cursor: "pointer",
-            // width: 100,
-            marginLeft: "85%",
-            border: 0,
-            padding: 15,
-            borderRadius: 10,
+            marginTop:10,
+            marginLeft: "90%",
           }}
           type="submit"
         >
           Add Asset
-        </button>
+        </Button>
       </div>
       <div className="app-container">
         <form onSubmit={handleEditFormSubmit}>
@@ -341,15 +341,15 @@ function AssetsTable(props) {
               style={{ marginBottom: 10 }}
               onChange={(e) => setLocation(e.target.value)}
             />
-            <Form.Label size="lg">Component List</Form.Label>
-            {/* <Form.Control
-              type="email"
-              id="email"
-              name="email"
-              aria-describedby="passwordHelpBlock"
+            {/* <Form.Label size="lg">Component List</Form.Label>
+            <Form.Control
+              type="text"
+              id="address"
+              name="address"
+              // aria-describedby="passwordHelpBlock"
               size="lg"
               style={{ marginBottom: 10 }}
-              onChange={(e) => setComponentList(e.target.value)}
+              onChange={(e) => setComponentList([...componentList,e.target.value.split(",")])}
             /> */}
           </Modal.Body>
           <Modal.Footer>

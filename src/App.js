@@ -6,6 +6,7 @@ import UserTable from "./components/UserTable";
 import Logs from "./components/Logs";
 import Login from "./components/HomeScreen";
 import { Route, Routes } from "react-router";
+import Dashboard from "./components/Dashboard";
 
 const fetchedProducts = [
   {
@@ -37,6 +38,7 @@ function App() {
 
       
 <Route path="/" element={<Login/>} exact />
+<Route path="/Dashboard" element={<Dashboard/>} />
 <Route path="/assets" element={<AssetsTable/>} />
 <Route path="/users" element={<UserTable/>} />
 <Route path="/logs" element={<Logs/>} />

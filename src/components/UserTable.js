@@ -1,12 +1,4 @@
-// import * as React from "react";
-// import Table from "@mui/material/Table";
-// import TableBody from "@mui/material/TableBody";
-// import TableCell from "@mui/material/TableCell";
-// import TableContainer from "@mui/material/TableContainer";
-// import TableHead from "@mui/material/TableHead";
-// import TableRow from "@mui/material/TableRow";
-// import Paper from "@mui/material/Paper";
-// import { Button } from "@mui/material";
+
 import React, { useState, Fragment, useRef, useEffect } from "react";
 import { nanoid } from "nanoid";
 import "../styles/Table.css";
@@ -37,6 +29,7 @@ function UserTable(props) {
 
     axios
       .get(`http://${api}/admin`, {
+
         headers: {
           "access-token": `${accessToken}`,
         },
@@ -154,7 +147,9 @@ function UserTable(props) {
     // });
     axios({
       method: "post",
+
       url: `http://${api}/admin/add_user`,
+
       data: {
         user_id: Math.floor(Math.random() * 1000000),
         username: name,
@@ -278,27 +273,36 @@ function UserTable(props) {
     // const index = contacts.findIndex((contact) => contact.id === id);
     // setDeleteId(id);
     console.log("Reached in handleDelete");
-    const params = JSON.stringify({
-      id:id
-    });
+
     // axios.delete(`http://192.168.1.6:3000/admin/delete_user/:id`,params, {
     //   headers: {
     //     "access-token": `${accessToken}`,
     //   },
   
     // })
+    //delete code
+    axios.delete(`http://192.168.56.1:3000/admin/delete_user/:${id}`, {
+      headers: {
+        "access-token": `${accessToken}`,
+      },
+      withCredentials:true,
+      data:{
+        id:id
+      }
+  
+    })
     
-    handleDialog(
-      "Are you sure you want to delete?",
-      true,
-      console.log("True Pressed"),
-      // axios.delete(`http://192.168.1.6:3000/admin/delete_user/:id`,params, {
-      //   headers: {
-      //     "access-token": `${accessToken}`,
-      //   },
+    // handleDialog(
+    //   "Are you sure you want to delete?",
+    //   true,
+    //   console.log('id inside true',id),
+    //   axios.delete(`http://192.168.56.1:3000/admin/delete_user/:${id}`, {
+    //     headers: {
+    //       "access-token": `${accessToken}`,
+    //     },
     
-      // })
-    );
+    //   })
+    // );
  
   };
   const handleDialog = (message, isLoading, nameProduct) => {
@@ -314,7 +318,7 @@ function UserTable(props) {
     <>
       <Navbar />
 
-      <div style={{ backgroundColor: "#a8b8d0", marginTop: 10 }}>
+      <div style={{ marginTop: 5 }}>
         <Button
           onClick={() => setModalVisible(true)}
           variant="primary"

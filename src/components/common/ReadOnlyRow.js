@@ -74,9 +74,9 @@ const ReadOnlyRow = ({
       return (
         <tr>
           <td>{item.asset_name}</td>
-          <td>{"item.category"}</td>
+          <td>{item.asset_category}</td>
           <td>{item.location}</td>
-          <td>{item.Asset_component_list}</td>
+          <td>{"item.asset_component_list"}</td>
           <td>
             <button
               check="button"
@@ -91,7 +91,7 @@ const ReadOnlyRow = ({
                 border: 0,
                 borderRadius: 5,
               }}
-              onClick={(event) => handleEditClick(event, item)}
+              onClick={(event) => console.log(item.asset_component_list)}
             >
               <p class="small-text">Update</p>
             </button>
