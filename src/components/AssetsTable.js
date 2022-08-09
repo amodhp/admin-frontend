@@ -20,6 +20,7 @@ import Modal from "react-bootstrap/Modal";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import { api } from "../extras/APIS";
 
 function AssetsTable(props) {
   const [contacts, setContacts] = useState(data);
@@ -62,7 +63,7 @@ function AssetsTable(props) {
     // });
 
     axios
-      .get("http://192.168.1.6:3000/admin/assets", {
+      .get(`http://${api}/admin/assets`, {
         headers: {
           "access-token": `${accessToken}`,
         },
@@ -127,19 +128,31 @@ function AssetsTable(props) {
     setEditFormData(newFormData);
   };
 
-  const handleAddFormSubmit = (event) => {
-    event.preventDefault();
+  const handleAddFormSubmit = (accessToken) => {
+    setModalVisible(false);
+    console.log("AssetData Data", name, location,category,componentList);
 
-    const newContact = {
-      id: nanoid(),
-      assetName: addFormData.assetName,
-      category: addFormData.category,
-      categoryId: addFormData.phoneNumber,
-      assetId: addFormData.assetId,
-    };
+    axios({
+      method: "post",
+      url: `http://${api}/admin/add_assets`,
+      data: {
+        asset_name:name,
+        location:location,
+        Asset_component_list:componentList
 
-    const newContacts = [...contacts, newContact];
-    setContacts(newContacts);
+      },
+      headers: {
+        "access-token": `${accessToken}`,
+      },
+    })
+      .then((res) => {
+        console.log(res);
+        getAssetsData(accessToken)
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
   };
 
   const handleEditFormSubmit = (event) => {
@@ -219,9 +232,9 @@ function AssetsTable(props) {
 
   const [modalVisible, setModalVisible] = useState(false);
   const [name, setName] = useState("");
-  const [role, setRole] = useState("");
-  const [phone, setPhone] = useState(0);
-  const [email, setEmail] = useState("");
+  const [category, setCategory] = useState("");
+  const [location, setLocation] = useState("");
+  const [componentList, setComponentList] = useState([]);
   return (
     <>
       <Navbar />
@@ -251,7 +264,7 @@ function AssetsTable(props) {
                 <th>Asset Name</th>
                 <th>Category</th>
                 <th>Location</th>
-                <th>Asset</th>
+                <th>Component List</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -294,11 +307,11 @@ function AssetsTable(props) {
         >
           <Modal.Header>
             <Modal.Title id="example-modal-sizes-title-lg">
-              Add User
+              Add Asset
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <Form.Label size="lg">Name</Form.Label>
+            <Form.Label size="lg">Asset Name</Form.Label>
             <Form.Control
               type="text"
               id="fulname"
@@ -308,7 +321,7 @@ function AssetsTable(props) {
               style={{ marginBottom: 10 }}
               onChange={(e) => setName(e.target.value)}
             />
-            <Form.Label size="lg">Role</Form.Label>
+            <Form.Label size="lg">Category</Form.Label>
             <Form.Control
               type="text"
               id="address"
@@ -316,28 +329,28 @@ function AssetsTable(props) {
               // aria-describedby="passwordHelpBlock"
               size="lg"
               style={{ marginBottom: 10 }}
-              onChange={(e) => setRole(e.target.value)}
+              onChange={(e) => setCategory(e.target.value)}
             />
-            <Form.Label size="lg">Phone</Form.Label>
+            <Form.Label size="lg">Location</Form.Label>
             <Form.Control
-              type="number"
-              id="phoneNumber"
-              name="phoneNumber"
-              aria-describedby="passwordHelpBlock"
+              type="text"
+              id="address"
+              name="address"
+              // aria-describedby="passwordHelpBlock"
               size="lg"
               style={{ marginBottom: 10 }}
-              onChange={(e) => setPhone(e.target.value)}
+              onChange={(e) => setLocation(e.target.value)}
             />
-            <Form.Label size="lg">Email</Form.Label>
-            <Form.Control
+            <Form.Label size="lg">Component List</Form.Label>
+            {/* <Form.Control
               type="email"
               id="email"
               name="email"
               aria-describedby="passwordHelpBlock"
               size="lg"
               style={{ marginBottom: 10 }}
-              onChange={(e) => setEmail(e.target.value)}
-            />
+              onChange={(e) => setComponentList(e.target.value)}
+            /> */}
           </Modal.Body>
           <Modal.Footer>
             <Button

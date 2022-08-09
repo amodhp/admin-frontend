@@ -20,6 +20,7 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import axios from "axios";
+import { api } from "../extras/APIS";
 
 function UserTable(props) {
   const accessToken = sessionStorage.getItem("token");
@@ -35,7 +36,7 @@ function UserTable(props) {
     // });
 
     axios
-      .get("http://192.168.1.6:3000/admin", {
+      .get(`http://${api}/admin`, {
         headers: {
           "access-token": `${accessToken}`,
         },
@@ -153,7 +154,7 @@ function UserTable(props) {
     // });
     axios({
       method: "post",
-      url: "http://192.168.1.6:3000/admin/add_user",
+      url: `http://${api}/admin/add_user`,
       data: {
         user_id: Math.floor(Math.random() * 1000000),
         username: name,

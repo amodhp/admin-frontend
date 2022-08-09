@@ -2,6 +2,7 @@ import React, { Component, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/LoginUi.css";
 import logo from "./../logo.png";
+import { api } from "../extras/APIS";
 
 import {
   useNavigate
@@ -27,7 +28,7 @@ function Login() {
       password: password,
     });
     axios
-      .post("http://192.168.1.6:3000/login", params, {
+      .post(`http://${api}/login`, params, {
         headers: {
           "content-type": "application/json",
         },
