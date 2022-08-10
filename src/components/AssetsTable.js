@@ -71,24 +71,17 @@ function AssetsTable(props) {
         },
       })
       .then(function (response) {
-        console.log(response.data);
         setDATA(response.data);
-        console.log("get assets");
-        // history.push("/users");
-        // navigate('/assets')
       })
 
       .catch(function (error) {
         console.log(accessToken);
         console.log(error, "Error Assets");
-        // alert("Oops! Wrong Password or Username!");
       });
   };
 
   const areUSureDelete = (choose) => {
     if (choose) {
-      // handleDeleteClick(contact)
-      // setContacts(contacts.filter((contact) => contact.id !== idProductRef.current));
       const newContacts = [...contacts];
 
       const index = contacts.findIndex(
@@ -270,18 +263,9 @@ function AssetsTable(props) {
             </thead>
             <tbody>
               {DATA.map((item) => (
-                <Fragment>
-                  {1 == 2 ? (
-                    {
-                      /* editContactId === contact.id ? (
-                    <EditableRow
-                      editFormData={editFormData}
-                      handleEditFormChange={handleEditFormChange}
-                      handleCancelClick={handleCancelClick}
-                    />
-                  )  */
-                    }
-                  ) : (
+                <Fragment 
+                key={item.assetId}>
+                  
                     <ReadOnlyRow
                       item={item}
                       tableType={"Assets"}
@@ -293,7 +277,7 @@ function AssetsTable(props) {
                       dialog={dialog}
                       // isLoading = {isLoading}
                     />
-                  )}
+                  
                 </Fragment>
               ))}
             </tbody>

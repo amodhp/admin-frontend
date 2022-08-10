@@ -8,7 +8,6 @@ import {
   useNavigate
 
 } from "react-router-dom";
-import { fontSize } from "@mui/system";
 import axios from 'axios'
 
 function Login() {
@@ -60,7 +59,7 @@ function Login() {
       </div>
       <div className="form-container">
         <form className="register-form">
-          {/* <div class="success-message">Success! Thank you for registering</div> */}
+          {/* <div className="success-message">Success! Thank you for registering</div> */}
           {/* <label>Email address</label> */}
           <input
             type="text"
@@ -98,22 +97,6 @@ function Login() {
         </form>
       </div>
     </div>
-
-    /* <h3>Sign In</h3>
-      
-      <div className="mb-3">
-        <div className="custom-control custom-checkbox">
-          <input
-            type="checkbox"
-            className="custom-control-input"
-            id="customCheck1"
-          />
-          <label className="custom-control-label" htmlFor="customCheck1">
-            Remember me
-          </label>
-        </div>
-      </div> */
-    // </form>
   );
 }
 

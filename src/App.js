@@ -5,8 +5,10 @@ import AssetsTable from "./components/AssetsTable";
 import UserTable from "./components/UserTable";
 import Logs from "./components/Logs";
 import Login from "./components/HomeScreen";
-import { Route, Routes } from "react-router";
+import { Navigate, Route, Routes } from "react-router";
 import Dashboard from "./components/Dashboard";
+import Navbar from "./components/Navbar";
+import Requests from "./Pages/Requests";
 
 const fetchedProducts = [
   {
@@ -31,17 +33,27 @@ const fetchedStockEvents = [
   { id: 5, type: "remove", qty: -40, product: fetchedProducts[1] },
 ];
 function App() {
+  function PrivateRoute({ children }) {
+    const token = sessionStorage.getItem("token");
+    
+    if (!token) {
+        return <Navigate to="/"  />
+    }
+    return children;
+}
+
+
+
   return (
     
     <div>
-      <Routes>
-
-      
+<Routes>
 <Route path="/" element={<Login/>} exact />
-<Route path="/Dashboard" element={<Dashboard/>} />
-<Route path="/assets" element={<AssetsTable/>} />
-<Route path="/users" element={<UserTable/>} />
-<Route path="/logs" element={<Logs/>} />
+<Route path="/Dashboard" element={<PrivateRoute><Dashboard/></PrivateRoute>} />
+<Route path="/assets" element={<PrivateRoute><AssetsTable/></PrivateRoute>} />
+<Route path="/users" element={<PrivateRoute><UserTable/></PrivateRoute>} />
+<Route path="/logs" element={<PrivateRoute><Logs/></PrivateRoute>} />
+<Route path="/requets" element={<PrivateRoute><Requests/></PrivateRoute>} />
 
 </Routes>
     </div>

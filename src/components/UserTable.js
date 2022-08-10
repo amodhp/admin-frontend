@@ -128,23 +128,7 @@ function UserTable(props) {
     setModalVisible(false);
     console.log("USer Data", name, role, accessToken);
 
-    //calling axios to post user data
-
-    // const params = JSON.stringify({
-    //   user_id: 11,
-    //   username: "amoood_",
-    //   password: "AModh",
-    //   first_name: name,
-    //   middle_name: "",
-    //   last_name: "",
-    //   mobile_phone: 9769388614,
-    //   email_id: "amodh1.pandey64@gmail.com",
-    //   company_name: "selec",
-    //   role: role,
-    //   note: "",
-    //   interfaces: "",
-    //   asset_category: [],
-    // });
+   
     axios({
       method: "post",
 
@@ -177,33 +161,7 @@ function UserTable(props) {
         console.log(error);
       });
 
-    //   axios
-    //     .post(
-    //       "http://192.168.1.7:3000/admin/add_user",
-    //       params,
-    //       {
-    // headers: {
-    //   "access-token": `${accessToken}`,
-    // },
-    //       }
-    //     )
-    //     .then(function (response) {
-    //       console.log(response.data);
-    //       // setDATA(response.data)
-    //       console.log("adding user");
-    //       // history.push("/users");
-    //       // navigate('/assets')
-    //     })
-
-    //     .catch(function (error) {
-    //       console.log(accessToken);
-    //       console.log(error, "Error add user");
-    //       // alert("Oops! Wrong Password or Username!");
-    //     });
-
-    //   // const newContacts = [...contacts, newContact];
-    //   // setContacts(newContacts);
-    // };
+   
   };
   const handleEditFormSubmit = (event) => {
     event.preventDefault();
@@ -341,7 +299,9 @@ function UserTable(props) {
               </thead>
               <tbody>
                 {DATA.map((item) => (
-                  <Fragment>
+                  <Fragment 
+                  key={item.id}
+                  >
                     {editContactId === item.id ? (
                       <EditableRow
                         editFormData={editFormData}

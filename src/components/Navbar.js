@@ -1,9 +1,13 @@
 import React, { useState } from "react";
 import "../styles/navbar.css";
 import logo from "./../logo.png";
+import AddWork from "./AddWork";
+import { Link } from "react-router-dom";
 
 export default function Navbar() {
   const [showMediaIcons, setShowMediaIcons] = useState(false);
+  const [showAddWork, setShowAddWork] = useState(false);
+  const handleShowAddWork = () => setShowAddWork(true);
   return (
      <>
       <nav className="main-nav">
@@ -18,32 +22,36 @@ export default function Navbar() {
         >
           <ul>
 
-          <li class="nav-item active">
-              <a class="nav-link" href="/Dashboard">
-                Dashboard
-              </a>
-              {/* <NavLink class="nav-link" to="/users"></NavLink> */}
-            </li>
-            <li class="nav-item active">
-              <a class="nav-link" href="/users">
-
-                Users
-              </a>
-              {/* <NavLink className="nav-link" to="/users"></NavLink> */}
+          <li className="nav-item active">
+              <Link to="/Dashboard" className="nav-link">Dashboard</Link>
             </li>
             <li className="nav-item active">
-              <a className="nav-link" href="/assets">
-                Assets
-              </a>
+              <Link to="/users" className="nav-link">Users</Link>
             </li>
             <li className="nav-item active">
-              <a className="nav-link" href="/logs">
-                Logs
-              </a>
+              <Link to="/assets" className="nav-link">Assets</Link>
+            </li>
+            <li className="nav-item active">
+              <Link to="/logs" className="nav-link">Logs</Link>
+            </li>
+            <li className="nav-item active">
+              <Link to="/requets" className="nav-link">Requests</Link>
             </li>
           </ul>
         </div>
+        <div className="add-work">
+          <button
+          onClick={handleShowAddWork}
+          >
+           <span>+</span>Add Work
+          </button>
+
+        </div>
       </nav>
+      <AddWork 
+      setShow={setShowAddWork}
+      show={showAddWork}
+      />
       </>
       )
         }

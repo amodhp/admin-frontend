@@ -26,7 +26,7 @@ const ReadOnlyRow = ({
           <td>
             <button
               check="button"
-              class="form-field-action-button"
+              className="form-field-action-button"
               style={{
                 background: "#4caf50",
                 color: "white",
@@ -39,11 +39,11 @@ const ReadOnlyRow = ({
               }}
               onClick={(event) => console.log(item.role)}
             >
-              <p class="small-text">Update</p>
+              <p className="small-text">Update</p>
             </button>
             <button
               check="button"
-              class="form-field-action-button"
+              className="form-field-action-button"
               style={{
                 background: "#FF0000",
                 color: "white",
@@ -57,7 +57,7 @@ const ReadOnlyRow = ({
               // onClick={() => handleDeleteClick(item.id)}
               onClick={() =>  handleDelete(item._id)}
             >
-              <p class="small-text">Delete</p>
+              <p className="small-text">Delete</p>
             </button>
             {dialog.isLoading && (
               <Dialog
@@ -80,7 +80,7 @@ const ReadOnlyRow = ({
           <td>
             <button
               check="button"
-              class="form-field-action-button"
+              className="form-field-action-button"
               style={{
                 background: "#4caf50",
                 color: "white",
@@ -93,11 +93,11 @@ const ReadOnlyRow = ({
               }}
               onClick={(event) => console.log(item.asset_component_list)}
             >
-              <p class="small-text">Update</p>
+              <p className="small-text">Update</p>
             </button>
             <button
               check="button"
-              class="form-field-action-button"
+              className="form-field-action-button"
               style={{
                 background: "#FF0000",
                 color: "white",
@@ -114,7 +114,7 @@ const ReadOnlyRow = ({
 
             >
               
-              <p class="small-text">Delete</p>
+              <p className="small-text">Delete</p>
             </button>
             {dialog.isLoading && (
               <Dialog

@@ -3,7 +3,6 @@
 }
 .App {
   text-align: center;
-  max-width: 500px;
   margin:auto;
   padding:24px 42px;
 }
@@ -20,3 +19,13 @@ padding: 24px;
   margin-right: 12px;
 }
 
+.card-body p{
+  font-size: 20px !important;
+}
+
+.card-header{
+  font-size: 20px !important;
+}
+.card{
+  
+}
