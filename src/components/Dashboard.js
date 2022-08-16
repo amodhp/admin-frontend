@@ -1,7 +1,9 @@
 import Button from 'react-bootstrap/Button';
 import Box from '@mui/material/Box';
 import Navbar from "./Navbar";
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
+import axios from 'axios'
+import { api } from '../extras/APIS';
 
 
 function Dashboard() {
@@ -10,6 +12,38 @@ function Dashboard() {
   const [inProgress,SetInProgress]=useState(0)
   const [totalRequest,SetTotalRequest]=useState(0)
   const [solvedRequest,setSolvedRequest]=useState(0)
+
+  const accessToken = sessionStorage.getItem("token");
+  useEffect(() => {
+    getDashboardData(accessToken, "admin");
+  }, []);
+
+  const getDashboardData=(accessToken,admin)=>{
+    axios
+    .get(`http://${api}/admin/ticket`, {
+
+      headers: {
+        "access-token": `${accessToken}`,
+      },
+    })
+    .then(function (response) {
+      // console.log(response.data);
+      // const data = response.data.users;
+      console.log(response.data.totalcount)
+      SetTotalRequest(response.data.totalcount)
+    
+     
+    })
+
+    .catch(function (error) {
+      console.log(accessToken);
+      console.log(error, "Error Get Ticket");
+      // alert("Oops! Wrong Password or Username!");
+    });
+
+  }
+
+  
 
  
   return (
