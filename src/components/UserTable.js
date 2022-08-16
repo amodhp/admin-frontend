@@ -16,6 +16,7 @@ import { api } from "../extras/APIS";
 
 function UserTable(props) {
   const accessToken = sessionStorage.getItem("token");
+  const [deleteConfirmation, setDeleteConfirmation] = useState(false);
   useEffect(() => {
     getUserData(accessToken, "admin");
   }, []);
@@ -27,8 +28,7 @@ function UserTable(props) {
     //   password: password,
     // });
 
-    axios
-      .get(`http://${api}/admin`, {
+    axios.get(`http://${api}/admin`, {
 
         headers: {
           "access-token": `${accessToken}`,
@@ -239,16 +239,33 @@ function UserTable(props) {
   
     // })
     //delete code
-    axios.delete(`http://192.168.56.1:3000/admin/delete_user/:${id}`, {
+    // axios.delete(`http://${api}/admin/delete_user/:${id}`, {
+    //   headers: {
+    //     "access-token": `${accessToken}`,
+    //   },
+    //   withCredentials:true,
+    //   data:{
+    //     id:id
+    //   }
+  
+    // })
+    axios({
+      method: "delete",
+      url: `http://${api}/admin/delete_user/${id}`,
       headers: {
         "access-token": `${accessToken}`,
       },
-      withCredentials:true,
-      data:{
-        id:id
-      }
-  
     })
+      .then((res) => {
+        console.log(res);
+        getUserData(accessToken)
+      })
+      .catch((error) => {
+        console.log(error);
+      }
+      );
+  }
+
     
     // handleDialog(
     //   "Are you sure you want to delete?",
@@ -262,7 +279,6 @@ function UserTable(props) {
     //   })
     // );
  
-  };
   const handleDialog = (message, isLoading, nameProduct) => {
     console.log("Reached in handleDialog");
     setDialog({
@@ -300,7 +316,7 @@ function UserTable(props) {
               <tbody>
                 {DATA.map((item) => (
                   <Fragment 
-                  key={item.id}
+                  key={item._id}
                   >
                     {editContactId === item.id ? (
                       <EditableRow

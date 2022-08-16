@@ -1,6 +1,7 @@
 import React, { useState, Fragment, useRef } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import  Dialog from "../Dialog";
+import { margin } from "@mui/system";
 
 
 
@@ -14,6 +15,14 @@ const ReadOnlyRow = ({
   areUSureDelete,
   dialog,
 }) => {
+  const [deleteConfirmation, setDeleteConfirmation] = useState(false);
+  const handleNo = () => {
+    setDeleteConfirmation(false);
+  }
+  const handleYes = (id) => {
+    setDeleteConfirmation(false);
+    handleDelete(id);
+  }
   
   const checkType = (check) => {
     if (check == "Users") {
@@ -55,10 +64,44 @@ const ReadOnlyRow = ({
                 borderRadius: 5,
               }}
               // onClick={() => handleDeleteClick(item.id)}
-              onClick={() =>  handleDelete(item._id)}
+              onClick={() =>  setDeleteConfirmation(true)}
             >
+            
+              
+
               <p className="small-text">Delete</p>
             </button>
+            {deleteConfirmation &&
+              (<div  style={{
+                zIndex: 1,
+                height: "100%",
+                width: "100%",
+                background: "#000000b8",
+                position: "absolute",
+                top: 0,
+                left: 0,
+
+              }}>
+              <div style={{
+                zIndex: 2,
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+                padding: "20px",
+                borderRadius: "5px",
+                border: "1px solid #ccc",
+                textAlign: "center",
+                boxShadow: "0px 0px 10px #ccc",
+                color: "black",
+                backgroundColor: "white",
+
+              }}>
+              <h2>Are you sure?</h2>
+              <button style={{backgroundColor: "#64ff64", margin:"5px", padding:"2px" }} onClick={() => handleYes(item._id)}>Yes</button>
+              <button style={{backgroundColor: "red", margin:"5px",  padding:"2px" }} onClick={handleNo}>No</button>
+              </div>
+              </div>)}
             {dialog.isLoading && (
               <Dialog
                 //Update
@@ -68,6 +111,7 @@ const ReadOnlyRow = ({
               />
             )}
           </td>
+          
         </tr>
       );
     } else if (check === "Assets") {

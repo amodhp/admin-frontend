@@ -65,7 +65,7 @@ const Requests = () => {
 
     const statusColor = (status) => {
 
-        if (status == 'Open') {
+        if (status == 'open') {
             setColor('#ffc107')
 
         } else if (status == 'In Progress') {
@@ -78,29 +78,31 @@ const Requests = () => {
 
     const [requests, setRequests] = React.useState([]);
     const accessToken = sessionStorage.getItem('token');
-    const headers = {
-        headers: {
-            Authorization: `Bearer ${accessToken}`,
-        },
-    };
-    useEffect(() => {
+    const getReqData=(accessToken,admin)=>{
         axios
-            .get(`http://${api}/requests`, headers)
-            .then((res) => {
-                console.log(res.data);
-                setRequests(res.data);
-            }).catch((err) => {
-                console.log(err);
-            }
-            );
-
-    }, []);
-
+        .get(`http://${api}/admin/ticket`, {
+    
+          headers: {
+            "access-token": `${accessToken}`,
+          },
+        })
+        .then(function (response) {
+          console.log(response.data.tickets);
+          setRequests(response.data.tickets);
+        
+         
+        })}
+        useEffect(() => {
+            getReqData(accessToken, "admin");
+    
+        }, []);
+    
+    
     return (
         <div>
             <Navbar />
             <div style={{ padding: "10px" }}>
-                {req.map(req =>
+                {/* {req.map(req =>
 
                     // <div className="card m-4" style={{ width: "40%" }}>
                     //     <div className="card-header">{req.subject}</div>
@@ -173,7 +175,26 @@ const Requests = () => {
 
 
 
-                )}
+                )} */}
+                {
+                    requests.map(req =>
+                        <div className="card m-4" style={{ width: "40%", borderRadius: "20px", border: "2px solid black"}} key={req._id} >
+                            <div className="card-header" style={{borderRadius: "20px 20px 0 0", backgroundColor:req.status=="open"? "#64ff64":"red", color:"black", borderBottom: "black 2px solid"}}>{req.subject}</div>
+                            
+                            <div className="card-body" style={{ color: "black" }}>
+                                <blockquote className="blockquote mb-0">
+                                    <p>
+                                        {req.description}
+                                    </p>
+                                    <footer className="blockquote-footer" >
+                                        {Date(req.open_at)}
+                                    </footer>
+                                </blockquote>
+                            </div>
+                        </div>
+                    )
+
+                }
             </div>
             <Footer />
         </div>

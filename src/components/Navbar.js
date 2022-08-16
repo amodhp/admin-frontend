@@ -2,12 +2,18 @@ import React, { useState } from "react";
 import "../styles/navbar.css";
 import logo from "./../logo.png";
 import AddWork from "./AddWork";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Navbar() {
   const [showMediaIcons, setShowMediaIcons] = useState(false);
   const [showAddWork, setShowAddWork] = useState(false);
   const handleShowAddWork = () => setShowAddWork(true);
+  const navigate = useNavigate();
+  const handleSignOut = () => {
+    sessionStorage.removeItem("token");
+    navigate("/");
+  }
+
   return (
      <>
       <nav className="main-nav">
@@ -47,7 +53,9 @@ export default function Navbar() {
           </button>
 
         </div>
+        <button onClick={handleSignOut} style={{position: "absolute", right:"0", marginTop:"6rem", padding:"4px"}}>Sign Out</button>
       </nav>
+      
       <AddWork 
       setShow={setShowAddWork}
       show={showAddWork}
