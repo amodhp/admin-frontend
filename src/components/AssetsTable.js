@@ -65,7 +65,6 @@ function AssetsTable(props) {
     axios
 
       .get(`http://${api}/admin/assets`, {
-
         headers: {
           "access-token": `${accessToken}`,
         },
@@ -125,17 +124,16 @@ function AssetsTable(props) {
 
   const handleAddFormSubmit = (accessToken) => {
     setModalVisible(false);
-    console.log("AssetData Data",componentList);
+    console.log("AssetData Data", componentList);
 
     axios({
       method: "post",
       url: `http://${api}/admin/add_assets`,
       data: {
-        asset_name:name,
-        location:location,
-        asset_category:category,
-        asset_component_list:componentList
-
+        asset_name: name,
+        location: location,
+        asset_category: category,
+        asset_component_list: componentList,
       },
       headers: {
         "access-token": `${accessToken}`,
@@ -143,12 +141,11 @@ function AssetsTable(props) {
     })
       .then((res) => {
         console.log(res);
-        getAssetsData(accessToken)
+        getAssetsData(accessToken);
       })
       .catch((error) => {
         console.log(error);
       });
-
   };
 
   const handleEditFormSubmit = (event) => {
@@ -241,7 +238,7 @@ function AssetsTable(props) {
           size="lg"
           style={{
             cursor: "pointer",
-            marginTop:10,
+            marginTop: 10,
             marginLeft: "90%",
           }}
           type="submit"
@@ -263,21 +260,18 @@ function AssetsTable(props) {
             </thead>
             <tbody>
               {DATA.map((item) => (
-                <Fragment 
-                key={item.assetId}>
-                  
-                    <ReadOnlyRow
-                      item={item}
-                      tableType={"Assets"}
-                      handleEditClick={handleEditClick}
-                      handleDeleteClick={handleDeleteClick}
-                      handleDelete={handleDelete}
-                      areUSureDelete={areUSureDelete}
-                      // message = {message}
-                      dialog={dialog}
-                      // isLoading = {isLoading}
-                    />
-                  
+                <Fragment key={item.assetId}>
+                  <ReadOnlyRow
+                    item={item}
+                    tableType={"Assets"}
+                    handleEditClick={handleEditClick}
+                    handleDeleteClick={handleDeleteClick}
+                    handleDelete={handleDelete}
+                    areUSureDelete={areUSureDelete}
+                    // message = {message}
+                    dialog={dialog}
+                    // isLoading = {isLoading}
+                  />
                 </Fragment>
               ))}
             </tbody>
@@ -306,7 +300,19 @@ function AssetsTable(props) {
               onChange={(e) => setName(e.target.value)}
             />
             <Form.Label size="lg">Category</Form.Label>
-            <Form.Control
+            <Form.Select
+              aria-label="Default select example"
+              size="lg"
+              style={{ marginBottom: 10 }}
+              onChange={(e) => setCategory(e.target.value)}
+            >
+              <option>Choose Category</option>
+              <option value="I.T">I.T</option>
+              <option value="Electrical">Electrical</option>
+              <option value="Hardware">Hardware</option>
+              <option value="Others">Others</option>
+            </Form.Select>
+            {/* <Form.Control
               type="text"
               id="address"
               name="address"
@@ -314,9 +320,20 @@ function AssetsTable(props) {
               size="lg"
               style={{ marginBottom: 10 }}
               onChange={(e) => setCategory(e.target.value)}
-            />
+            /> */}
             <Form.Label size="lg">Location</Form.Label>
-            <Form.Control
+            <Form.Select
+              aria-label="Default select example"
+              size="lg"
+              style={{ marginBottom: 10 }}
+              onChange={(e) => setLocation(e.target.value)}
+            >
+              <option>Choose Location</option>
+              <option value="Area-1">Area-1</option>
+              <option value="Area-2">Area-2</option>
+              <option value="Area-3">Area-3</option>
+            </Form.Select>
+            {/* <Form.Control
               type="text"
               id="address"
               name="address"
@@ -324,7 +341,7 @@ function AssetsTable(props) {
               size="lg"
               style={{ marginBottom: 10 }}
               onChange={(e) => setLocation(e.target.value)}
-            />
+            /> */}
             {/* <Form.Label size="lg">Component List</Form.Label>
             <Form.Control
               type="text"

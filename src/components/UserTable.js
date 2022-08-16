@@ -1,4 +1,3 @@
-
 import React, { useState, Fragment, useRef, useEffect } from "react";
 import { nanoid } from "nanoid";
 import "../styles/Table.css";
@@ -28,8 +27,8 @@ function UserTable(props) {
     //   password: password,
     // });
 
-    axios.get(`http://${api}/admin`, {
-
+    axios
+      .get(`http://${api}/admin`, {
         headers: {
           "access-token": `${accessToken}`,
         },
@@ -128,7 +127,6 @@ function UserTable(props) {
     setModalVisible(false);
     console.log("USer Data", name, role, accessToken);
 
-   
     axios({
       method: "post",
 
@@ -155,13 +153,11 @@ function UserTable(props) {
     })
       .then((res) => {
         console.log(res);
-        getUserData(accessToken)
+        getUserData(accessToken);
       })
       .catch((error) => {
         console.log(error);
       });
-
-   
   };
   const handleEditFormSubmit = (event) => {
     event.preventDefault();
@@ -227,7 +223,7 @@ function UserTable(props) {
   };
   const handleDelete = (id) => {
     //Update
-    console.log(id,"inside handlete func")
+    console.log(id, "inside handlete func");
     // const index = contacts.findIndex((contact) => contact.id === id);
     // setDeleteId(id);
     console.log("Reached in handleDelete");
@@ -236,7 +232,7 @@ function UserTable(props) {
     //   headers: {
     //     "access-token": `${accessToken}`,
     //   },
-  
+
     // })
     //delete code
     // axios.delete(`http://${api}/admin/delete_user/:${id}`, {
@@ -247,7 +243,7 @@ function UserTable(props) {
     //   data:{
     //     id:id
     //   }
-  
+
     // })
     axios({
       method: "delete",
@@ -258,27 +254,25 @@ function UserTable(props) {
     })
       .then((res) => {
         console.log(res);
-        getUserData(accessToken)
+        getUserData(accessToken);
       })
       .catch((error) => {
         console.log(error);
-      }
-      );
-  }
+      });
+  };
 
-    
-    // handleDialog(
-    //   "Are you sure you want to delete?",
-    //   true,
-    //   console.log('id inside true',id),
-    //   axios.delete(`http://192.168.56.1:3000/admin/delete_user/:${id}`, {
-    //     headers: {
-    //       "access-token": `${accessToken}`,
-    //     },
-    
-    //   })
-    // );
- 
+  // handleDialog(
+  //   "Are you sure you want to delete?",
+  //   true,
+  //   console.log('id inside true',id),
+  //   axios.delete(`http://192.168.56.1:3000/admin/delete_user/:${id}`, {
+  //     headers: {
+  //       "access-token": `${accessToken}`,
+  //     },
+
+  //   })
+  // );
+
   const handleDialog = (message, isLoading, nameProduct) => {
     console.log("Reached in handleDialog");
     setDialog({
@@ -315,9 +309,7 @@ function UserTable(props) {
               </thead>
               <tbody>
                 {DATA.map((item) => (
-                  <Fragment 
-                  key={item._id}
-                  >
+                  <Fragment key={item._id}>
                     {editContactId === item.id ? (
                       <EditableRow
                         editFormData={editFormData}
@@ -363,7 +355,23 @@ function UserTable(props) {
                 onChange={(e) => setName(e.target.value)}
               />
               <Form.Label size="lg">Role</Form.Label>
-              <Form.Control
+              <Form.Select
+                aria-label="Default select example"
+                size="lg"
+                style={{ marginBottom: 10 }}
+                onChange={(e)=>setRole(e.target.value)}
+              >
+                <option>Choose Role</option>
+                <option value="admin">admin</option>
+                <option value="technician-internal">technician-internal</option>
+                <option value="requestee">requestee</option>
+                <option value="design">design</option>
+                <option value="department-head">department-head</option>
+                <option value="technician-external">technician-external</option>
+                <option value="management">management</option>
+              </Form.Select>
+              {/* {console.log(role,'role')} */}
+              {/* <Form.Control
                 type="text"
                 id="address"
                 name="address"
@@ -371,7 +379,7 @@ function UserTable(props) {
                 size="lg"
                 style={{ marginBottom: 10 }}
                 onChange={(e) => setRole(e.target.value)}
-              />
+              /> */}
               <Form.Label size="lg">Phone</Form.Label>
               <Form.Control
                 type="number"
