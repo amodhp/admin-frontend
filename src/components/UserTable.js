@@ -109,6 +109,7 @@ function UserTable(props) {
   const [role, setRole] = useState("");
   const [phone, setPhone] = useState(0);
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("1234");
 
   const handleEditFormChange = (event) => {
     event.preventDefault();
@@ -126,7 +127,13 @@ function UserTable(props) {
     // event.preventDefault();
     setModalVisible(false);
     console.log("USer Data", name, role, accessToken);
-
+   
+    console.log("password", password);
+    //console typeof password
+    console.log("typeof password", typeof password);
+    console.log(role);
+    
+    console.log("password while calling function", password);
     axios({
       method: "post",
 
@@ -135,7 +142,7 @@ function UserTable(props) {
       data: {
         user_id: Math.floor(Math.random() * 1000000),
         username: name,
-        password: "AModh",
+        password: password,
         first_name: name,
         middle_name: "",
         last_name: "",
@@ -159,6 +166,21 @@ function UserTable(props) {
         console.log(error);
       });
   };
+  
+  const handleRoleChange = (event) => {
+    event.preventDefault();
+    setRole(event.target.value);
+    console.log("role", role);
+    if(role === "requestee"){
+      //convert 
+      setPassword(email);
+    }else{
+      setPassword(phone.toString());
+
+    }
+    console.log("password while role select", password);
+  }
+
   const handleEditFormSubmit = (event) => {
     event.preventDefault();
 
@@ -227,24 +249,6 @@ function UserTable(props) {
     // const index = contacts.findIndex((contact) => contact.id === id);
     // setDeleteId(id);
     console.log("Reached in handleDelete");
-
-    // axios.delete(`http://192.168.1.6:3000/admin/delete_user/:id`,params, {
-    //   headers: {
-    //     "access-token": `${accessToken}`,
-    //   },
-
-    // })
-    //delete code
-    // axios.delete(`http://${api}/admin/delete_user/:${id}`, {
-    //   headers: {
-    //     "access-token": `${accessToken}`,
-    //   },
-    //   withCredentials:true,
-    //   data:{
-    //     id:id
-    //   }
-
-    // })
     axios({
       method: "delete",
       url: `http://${api}/admin/delete_user/${id}`,
@@ -260,19 +264,7 @@ function UserTable(props) {
         console.log(error);
       });
   };
-
-  // handleDialog(
-  //   "Are you sure you want to delete?",
-  //   true,
-  //   console.log('id inside true',id),
-  //   axios.delete(`http://192.168.56.1:3000/admin/delete_user/:${id}`, {
-  //     headers: {
-  //       "access-token": `${accessToken}`,
-  //     },
-
-  //   })
-  // );
-
+  
   const handleDialog = (message, isLoading, nameProduct) => {
     console.log("Reached in handleDialog");
     setDialog({
@@ -359,7 +351,7 @@ function UserTable(props) {
                 aria-label="Default select example"
                 size="lg"
                 style={{ marginBottom: 10 }}
-                onChange={(e)=>setRole(e.target.value)}
+                onChange={(e) => setRole(e.target.value)}
               >
                 <option>Choose Role</option>
                 <option value="admin">admin</option>

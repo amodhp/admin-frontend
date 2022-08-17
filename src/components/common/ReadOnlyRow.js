@@ -2,6 +2,8 @@ import React, { useState, Fragment, useRef } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import  Dialog from "../Dialog";
 import { margin } from "@mui/system";
+import axios from "axios";
+import { api } from "../../extras/APIS";
 
 
 
@@ -16,6 +18,9 @@ const ReadOnlyRow = ({
   dialog,
 }) => {
   const [deleteConfirmation, setDeleteConfirmation] = useState(false);
+  const [assetDeleteConfirmation, setAssetDeleteConfirmation] = useState(false);
+  const accessToken = sessionStorage.getItem("token");
+
   const handleNo = () => {
     setDeleteConfirmation(false);
   }
@@ -23,7 +28,13 @@ const ReadOnlyRow = ({
     setDeleteConfirmation(false);
     handleDelete(id);
   }
-  
+  const handleDeleteAssetYes = (id) => {
+    setAssetDeleteConfirmation(false);
+    handleDelete(id);
+  }
+  const handleDeleteAssetNo = () => {
+    setAssetDeleteConfirmation(false);
+  }
   const checkType = (check) => {
     if (check == "Users") {
       return (
@@ -135,7 +146,7 @@ const ReadOnlyRow = ({
                 border: 0,
                 borderRadius: 5,
               }}
-              onClick={(event) => console.log(item.asset_component_list)}
+              onClick={(event) => console.log(item._id)}
             >
               <p className="small-text">Update</p>
             </button>
@@ -153,13 +164,44 @@ const ReadOnlyRow = ({
                 borderRadius: 5,
               }}
               // onClick={() => handleDeleteClick(item.assetId)}
-              onClick={() =>  handleDelete(item.assetId)}
+              onClick={()=>setAssetDeleteConfirmation(true)}
               // onClick={() =>  console.log(item.asset_name)}
 
             >
               
               <p className="small-text">Delete</p>
             </button>
+            {assetDeleteConfirmation &&
+              (<div  style={{
+                zIndex: 1,
+                height: "100%",
+                width: "100%",
+                background: "#000000b8",
+                position: "absolute",
+                top: 0,
+                left: 0,
+
+              }}>
+              <div style={{
+                zIndex: 2,
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+                padding: "20px",
+                borderRadius: "5px",
+                border: "1px solid #ccc",
+                textAlign: "center",
+                boxShadow: "0px 0px 10px #ccc",
+                color: "black",
+                backgroundColor: "white",
+
+              }}>
+              <h2>Are you sure?</h2>
+              <button style={{backgroundColor: "#64ff64", margin:"5px", padding:"2px" }} onClick={() => handleDeleteAssetYes(item._id)}>Yes</button>
+              <button style={{backgroundColor: "red", margin:"5px",  padding:"2px" }} onClick={handleDeleteAssetNo}>No</button>
+              </div>
+              </div>)}
             {dialog.isLoading && (
               <Dialog
                 //Update

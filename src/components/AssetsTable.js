@@ -202,16 +202,21 @@ function AssetsTable(props) {
   };
   const handleDelete = (id) => {
     //Update
-    const index = contacts.findIndex((contact) => contact.assetId === id);
-    setDeleteId(id);
-    console.log("Reached in handleDelete");
+ 
+    axios({
+      method: "delete",
+      url: `http://${api}/admin/delete_asset/${id}`,
+      headers: {
+        "access-token": `${accessToken}`,
+      },
+    }).then((res) => {
+      console.log(res);
+      getAssetsData(accessToken);
+    }).catch((error) => {
+      console.log(error);
+    })
 
-    handleDialog(
-      "Are you sure you want to delete?",
-      true,
-      contacts[index].assetName
-    );
-    idProductRef.current = id;
+    
   };
   const handleDialog = (message, isLoading, nameProduct) => {
     console.log("Reached in handleDialog");
