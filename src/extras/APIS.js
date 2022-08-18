@@ -1,1 +1,1 @@
-export const api='192.168.56.1:3000' //api:portnumber 
+export const api='192.168.1.7:3000' //api:portnumber 

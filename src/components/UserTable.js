@@ -110,6 +110,8 @@ function UserTable(props) {
   const [phone, setPhone] = useState(0);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("1234");
+  const [skills, setSkills] = useState([]);
+  const s = [];
 
   const handleEditFormChange = (event) => {
     event.preventDefault();
@@ -127,12 +129,12 @@ function UserTable(props) {
     // event.preventDefault();
     setModalVisible(false);
     console.log("USer Data", name, role, accessToken);
-   
+
     console.log("password", password);
     //console typeof password
     console.log("typeof password", typeof password);
     console.log(role);
-    
+
     console.log("password while calling function", password);
     axios({
       method: "post",
@@ -152,7 +154,7 @@ function UserTable(props) {
         role: role,
         note: "",
         interfaces: "",
-        asset_category: [],
+        skills: skills,
       },
       headers: {
         "access-token": `${accessToken}`,
@@ -166,20 +168,19 @@ function UserTable(props) {
         console.log(error);
       });
   };
-  
+
   const handleRoleChange = (event) => {
     event.preventDefault();
     setRole(event.target.value);
     console.log("role", role);
-    if(role === "requestee"){
-      //convert 
+    if (role === "requestee") {
+      //convert
       setPassword(email);
-    }else{
+    } else {
       setPassword(phone.toString());
-
     }
     console.log("password while role select", password);
-  }
+  };
 
   const handleEditFormSubmit = (event) => {
     event.preventDefault();
@@ -264,7 +265,7 @@ function UserTable(props) {
         console.log(error);
       });
   };
-  
+
   const handleDialog = (message, isLoading, nameProduct) => {
     console.log("Reached in handleDialog");
     setDialog({
@@ -374,10 +375,11 @@ function UserTable(props) {
               /> */}
               <Form.Label size="lg">Phone</Form.Label>
               <Form.Control
-                type="number"
-                id="phoneNumber"
-                name="phoneNumber"
-                aria-describedby="passwordHelpBlock"
+                type="text"
+                // id="phoneNumber"
+                // name="phoneNumber"
+                maxlength="10"
+                // aria-describedby="passwordHelpBlock"
                 size="lg"
                 style={{ marginBottom: 10 }}
                 onChange={(e) => setPhone(e.target.value)}
@@ -392,6 +394,118 @@ function UserTable(props) {
                 style={{ marginBottom: 10 }}
                 onChange={(e) => setEmail(e.target.value)}
               />
+
+              {console.log("Intial skills", skills)}
+              {/* <select name="vehicle_part[]" class="superSelect" onChange={(e)=>(setSkills(skills.push(e.target.value)),console.log("Skills",skills))}>
+                <option value="">Select</option>
+                <option value="test1">test1</option>
+                <option value="test2">test2</option>
+                <option value="test3">test3</option>
+              </select> */}
+
+              {role == "technician-internal" ?   <>
+              
+                  <Form.Label size="lg">Skills</Form.Label>
+                  <div className="mb-2">
+                    <Button
+                      style={{ marginLeft: 5 }}
+                      disabled={true ? skills.includes("mouse") : false}
+                      variant="primary"
+                      size="lg"
+                      onClick={() => setSkills([...skills, "mouse"])}
+                    >
+                      mouse
+                    </Button>{" "}
+                    <Button
+                      style={{ marginLeft: 5 }}
+                      disabled={true ? skills.includes("printer") : false}
+                      variant="success"
+                      color="red"
+                      size="lg"
+                      onClick={() => setSkills([...skills, "printer"])}
+                    >
+                      printer
+                    </Button>
+                    <Button
+                      style={{ marginLeft: 5 }}
+                      disabled={true ? skills.includes("A.C") : false}
+                      variant="warning"
+                      size="lg"
+                      onClick={() => setSkills([...skills, "A.C"])}
+                    >
+                      I.T
+                    </Button>
+                    <Button
+                      style={{ marginLeft: 5 }}
+                      disabled={true ? skills.includes("projector") : false}
+                      variant="info"
+                      size="lg"
+                      onClick={() => setSkills([...skills, "projector"])}
+                    >
+                      projector
+                    </Button>
+                    <Button
+                      style={{ marginLeft: 5 }}
+                      disabled={true ? skills.includes("monitor") : false}
+                      variant="secondary"
+                      size="lg"
+                      onClick={() => setSkills([...skills, "monitor"])}
+                    >
+                      monitor
+                    </Button>
+                  </div>
+               
+              </> : null}
+
+              {/* <div className="mb-2">
+                <Button
+                  style={{ marginLeft: 5 }}
+                  disabled={true ? skills.includes("mouse") : false}
+                  variant="primary"
+                  size="lg"
+                  onClick={() => setSkills([...skills, "mouse"])}
+                >
+                  mouse
+                </Button>{" "}
+                <Button
+                  style={{ marginLeft: 5 }}
+                  disabled={true ? skills.includes("printer") : false}
+                  variant="success"
+                  color="red"
+                  size="lg"
+                  onClick={() => setSkills([...skills, "printer"])}
+                >
+                  printer
+                </Button>
+                <Button
+                  style={{ marginLeft: 5 }}
+                  disabled={true ? skills.includes("A.C") : false}
+                  variant="warning"
+                  size="lg"
+                  onClick={() => setSkills([...skills, "A.C"])}
+                >
+                  I.T
+                </Button>
+                <Button
+                  style={{ marginLeft: 5 }}
+                  disabled={true ? skills.includes("projector") : false}
+                  variant="info"
+                  size="lg"
+                  onClick={() => setSkills([...skills, "projector"])}
+                >
+                  projector
+                </Button>
+                <Button
+                  style={{ marginLeft: 5 }}
+                  disabled={true ? skills.includes("monitor") : false}
+                  variant="secondary"
+                  size="lg"
+                  onClick={() => setSkills([...skills, "monitor"])}
+                >
+                  monitor
+                </Button>
+              </div> */}
+              {/* {console.log("Skills", skills)} */}
             </Modal.Body>
             <Modal.Footer>
               <Button

@@ -124,7 +124,7 @@ function AssetsTable(props) {
 
   const handleAddFormSubmit = (accessToken) => {
     setModalVisible(false);
-    console.log("AssetData Data", componentList);
+    console.log("AssetData Data", name,location,category);
 
     axios({
       method: "post",
