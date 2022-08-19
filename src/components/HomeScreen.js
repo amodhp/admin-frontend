@@ -40,7 +40,7 @@ function Login() {
     
         console.log('Next Page ')
         // history.push("/users");
-         navigate('/assets')
+         navigate('/dashboard')
 
      
       })

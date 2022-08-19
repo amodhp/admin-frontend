@@ -12,10 +12,10 @@ export default function Navbar() {
   const handleSignOut = () => {
     sessionStorage.removeItem("token");
     navigate("/");
-  }
+  };
 
   return (
-     <>
+    <>
       <nav className="main-nav">
         <div className="logo">
           <img src={logo} alt="Logo" style={{ width: 100 }} />
@@ -27,43 +27,56 @@ export default function Navbar() {
           }
         >
           <ul>
-
-          <li className="nav-item active">
-              <Link to="/Dashboard" className="nav-link">Dashboard</Link>
+            <li className="nav-item active">
+              <Link to="/Dashboard" className="nav-link">
+                Dashboard
+              </Link>
             </li>
             <li className="nav-item active">
-              <Link to="/users" className="nav-link">Users</Link>
+              <Link to="/users" className="nav-link">
+                Users
+              </Link>
             </li>
             <li className="nav-item active">
-              <Link to="/assets" className="nav-link">Assets</Link>
+              <Link to="/assets" className="nav-link">
+                Assets
+              </Link>
             </li>
             <li className="nav-item active">
-              <Link to="/logs" className="nav-link">Logs</Link>
+              <Link to="/logs" className="nav-link">
+                Logs
+              </Link>
             </li>
             <li className="nav-item active">
-              <Link to="/requets" className="nav-link">Requests</Link>
+              <Link to="/requets" className="nav-link">
+                Requests
+              </Link>
             </li>
           </ul>
         </div>
         <div className="add-work">
-          <button
-          onClick={handleShowAddWork}
-          >
-           <span>+</span>Add Work
+          <button onClick={handleShowAddWork}>
+            <span>+</span>Add Work
           </button>
-
         </div>
-        <button onClick={handleSignOut} style={{position: "absolute", right:"0", marginTop:"6rem", padding:"4px"}}>Sign Out</button>
+        <button
+          onClick={handleSignOut}
+          style={{
+            position: "absolute",
+            backgroundColor: "lightgrey",
+            right: "0",
+            // marginTop: "6rem",
+            padding: "4px",
+            borderRadius: 10,
+            marginTop: -10,
+            marginRight: 20,
+          }}
+        >
+          Sign Out
+        </button>
       </nav>
-      
-      <AddWork 
-      setShow={setShowAddWork}
-      show={showAddWork}
-      />
-      </>
-      )
-        }
-        
-  
-    
-  
+
+      <AddWork setShow={setShowAddWork} show={showAddWork} />
+    </>
+  );
+}

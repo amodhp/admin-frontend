@@ -433,7 +433,7 @@ function UserTable(props) {
                       size="lg"
                       onClick={() => setSkills([...skills, "A.C"])}
                     >
-                      I.T
+                      A.C
                     </Button>
                     <Button
                       style={{ marginLeft: 5 }}
